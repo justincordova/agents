@@ -11,11 +11,11 @@ Create a spec.md — a big-picture project overview that captures the vision, sc
 
 **Announce at start:** "Using writing-spec skill to create the project spec."
 
-**Save specs to:** `docs/plans/YYYY-MM-DD-<project-name>-spec.md` or `spec.md` at project root
+**Save specs to:** `docs/SPEC.md`
 
 ## What a Spec Is
 
-A spec is the source of truth for WHAT you're building and WHY. It's the document you hand to someone and they understand the full picture. The writing-plans skill will later break this into implementation phases.
+A spec is the source of truth for WHAT you're building and WHY. It's the document you hand to someone and they understand the full picture. The writing-plans skill will later break this into implementation tasks.
 
 Think of it as a product brief + technical design combined.
 
@@ -50,7 +50,6 @@ Think of it as a product brief + technical design combined.
 ### Key Components
 - [Component 1]: [what it does]
 - [Component 2]: [what it does]
-- ...
 
 ### Data Flow
 [How data moves through the system. Can be prose, can be a simple diagram.]
@@ -85,7 +84,7 @@ Think of it as a product brief + technical design combined.
 3. **Draft the spec** — write each section, keep it concise
 4. **Present for review** — show the user, get feedback
 5. **Revise** — incorporate feedback
-6. **Save** — write to file
+6. **Save** — write to `docs/SPEC.md`
 
 ## Writing Good Specs
 
@@ -107,6 +106,6 @@ Think of it as a product brief + technical design combined.
 
 Once the spec is approved:
 
-"Spec saved to `<path>`. Next step: use the writing-plans skill to create an implementation plan from this spec."
+"Spec saved to `docs/SPEC.md`. Next step: use the writing-plans skill to create an implementation plan from this spec."
 
 Offer to invoke writing-plans next.

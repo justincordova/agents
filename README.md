@@ -23,7 +23,7 @@ Issue-driven work:
 
 **Brainstorm** is the non-negotiable step. The agent explores the problem, asks clarifying questions one at a time, proposes 2-3 approaches with trade-offs, and presents a design for approval. No code gets written until the user approves.
 
-**Execute** happens in batches of 3 tasks with a review checkpoint between each batch. The agent stops and reports. You give feedback. It continues. No 50-step fire-and-forget.
+**Execute** groups tasks into batches by logical cohesion — related tasks stay together regardless of count, unrelated tasks get separate batches. The agent stops and reports between batches. You give feedback. It continues. No 50-step fire-and-forget.
 
 **Code review** uses a dedicated subagent that reads every file completely, mentally simulates execution under adverse conditions, traces data flow for security issues, and reports findings ranked by severity. No edits — report only.
 
@@ -36,9 +36,10 @@ Skills define *how the agent behaves* — behavioral context loaded when a task 
 | Skill | What it does |
 |---|---|
 | **brainstorm** | Collaborative design through questions, approaches, and approval gates |
-| **spec** | Comprehensive project specs before any planning |
-| **plan** | Step-by-step implementation plans from specs |
-| **execute** | Batch execution with review checkpoints |
+| **spec** | Comprehensive project specs (`docs/SPEC.md`) before any planning |
+| **plan** | High-level implementation plans — direction, not dictation |
+| **execute** | Smart batch execution grouped by logical cohesion |
+| **update-docs** | Sync all documentation with recent codebase changes |
 | **analyze-issue** | Fetch GitHub issues, break down requirements, produce an impl spec |
 | **code-review** | Systematic review — correctness, security, concurrency, design |
 | **debugging** | Structured debugging — reproduce, isolate, fix, verify |
@@ -51,7 +52,7 @@ Skills define *how the agent behaves* — behavioral context loaded when a task 
 
 Slash commands are saved prompt templates — shortcuts that trigger the corresponding skill.
 
-`/brainstorm` `/spec` `/plan` `/execute` `/review` `/analyze-issue` `/writing-skills`
+`/brainstorm` `/spec` `/plan` `/execute` `/update-docs` `/review` `/analyze-issue` `/writing-skills`
 
 ### Agents
 
