@@ -7,9 +7,10 @@ Load the plan skill, then create an implementation plan for: $ARGUMENTS
 Follow the plan skill guidelines:
 - Direction not dictation — what to build, in what order, what depends on what
 - Tasks are meaningful units (30 min to 2 hours), not micro-steps
-- No exact code — the executing engineer writes the code
-- Reference existing patterns in the codebase
-- Document key decisions and constraints
-- Save to docs/plans/YYYY-MM-DD-<feature-name>-plan.md
+- Each task: What, Why, How, Verify
+- No exact code or file paths — the executing engineer writes the code
+- Reference existing patterns, key decisions, integration points, things to watch out for
+- Use phases only when there are real stage gates (hard dependencies between groups)
+- Save to docs/plans/<feature-name>-plan.md
 
-Structure: phases with tasks containing what/why/how/verify.
+After saving, ask: "Want me to start executing, or would you like to review it first?"
