@@ -11,11 +11,11 @@ Shared between [Claude Code](https://docs.anthropic.com/en/docs/claude-code) and
 Every task goes through brainstorming first. Then the path splits:
 
 ```
-New projects / major features:
-  brainstorm → spec → plan → execute (subagents for parallel work)
+All work:
+  brainstorm → spec → plan → execute → retro
 
-Bugfixes, small features, maintenance:
-  brainstorm → plan → execute
+Small tasks (bugfixes, config changes):
+  brainstorm → plan (lightweight) → execute
 
 Issue-driven work:
   /analyze-issue → plan → execute
@@ -39,7 +39,8 @@ Skills define *how the agent behaves* — behavioral context loaded when a task 
 | **spec** | Comprehensive project specs (`docs/SPEC.md`) before any planning |
 | **plan** | High-level implementation plans — direction, not dictation |
 | **execute** | Smart batch execution grouped by logical cohesion |
-| **update-docs** | Sync all documentation with recent codebase changes |
+| **retro** | Post-implementation review — capture lessons, update SPEC.md if reality diverged from design |
+| **sync-docs** | Sync all documentation with recent codebase changes |
 | **analyze-issue** | Fetch GitHub issues, break down requirements, produce an impl spec |
 | **code-review** | Systematic review — correctness, security, concurrency, design |
 | **debugging** | Structured debugging — reproduce, isolate, fix, verify |
@@ -52,7 +53,7 @@ Skills define *how the agent behaves* — behavioral context loaded when a task 
 
 Slash commands are saved prompt templates — shortcuts that trigger the corresponding skill.
 
-`/brainstorm` `/spec` `/plan` `/execute` `/update-docs` `/review` `/analyze-issue` `/writing-skills`
+`/brainstorm` `/spec` `/plan` `/execute` `/retro` `/sync-docs` `/review` `/analyze-issue` `/writing-skills`
 
 ### Agents
 
@@ -76,15 +77,23 @@ git clone git@github.com:justincordova/agents.git ~/agent
 # Claude Code
 ln -s ~/agent/CLAUDE.md ~/.claude/CLAUDE.md
 ln -s ~/agent/RTK.md ~/.claude/RTK.md
-ln -s ~/agent/skills ~/.claude/skills
 ln -s ~/agent/agents ~/.claude/agents
 ln -s ~/agent/commands ~/.claude/commands
 ln -s ~/agent/rules ~/.claude/rules
+# Skills are linked per-skill (allows mixing agent skills with standalone ones)
+mkdir -p ~/.claude/skills
+for skill in ~/agent/skills/*/; do
+  ln -s "$skill" ~/.claude/skills/"$(basename "$skill")"
+done
 
-# OpenCode
-ln -s ~/agent/skills ~/.opencode/skills
+# OpenCode (reads ~/.claude/CLAUDE.md as fallback, so no separate link needed)
 ln -s ~/agent/agents ~/.opencode/agents
 ln -s ~/agent/commands ~/.opencode/commands
+ln -s ~/agent/rules ~/.opencode/rules
+mkdir -p ~/.opencode/skills
+for skill in ~/agent/skills/*/; do
+  ln -s "$skill" ~/.opencode/skills/"$(basename "$skill")"
+done
 ```
 
 ## Why

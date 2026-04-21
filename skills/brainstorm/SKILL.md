@@ -21,17 +21,17 @@ Every project goes through this process. A todo list, a single-function utility,
 
 Create a task for each item and complete them in order:
 
-1. **Explore project context** — check files, docs, recent commits
+1. **Explore project context** — check files, docs, recent commits, read `docs/SPEC.md` if it exists
 2. **Ask clarifying questions** — one at a time, understand purpose/constraints/success criteria
 3. **Propose 2-3 approaches** — with trade-offs and your recommendation
 4. **Present design** — in sections scaled to complexity, get user approval after each section
-5. **Write design doc** — save to `docs/plans/YYYY-MM-DD-<topic>-design.md`
-6. **Transition** — ask user what's next: write a spec, write a plan, or start building
+5. **Hand off to spec skill** — if design decisions changed, invoke the spec skill to update `docs/SPEC.md`
+6. **Transition** — ask user what's next: write a plan or start building
 
 ## Process Flow
 
 ```
-Explore context → Ask questions → Propose approaches → Present design → User approves? → Write doc → Transition
+Explore context → Ask questions → Propose approaches → Present design → User approves? → Hand off to spec → Transition
                                                                        ↓
                                                             Revise and re-present
 ```
@@ -40,9 +40,11 @@ Explore context → Ask questions → Propose approaches → Present design → 
 
 **Understanding the idea:**
 - Check the current project state first (files, docs, recent commits)
+- Read `docs/SPEC.md` if it exists to understand current design decisions
 - Ask questions one at a time to refine the idea
 - Prefer multiple choice questions when possible
 - Focus on: purpose, constraints, success criteria
+- Always give recommendations backed by best practices — scalable architecture, good UI/UX patterns, clean reusable code, separation of concerns, industry conventions. Don't just ask bare questions, offer informed opinions
 
 **Exploring approaches:**
 - Propose 2-3 different approaches with trade-offs
@@ -55,15 +57,17 @@ Explore context → Ask questions → Propose approaches → Present design → 
 
 ## After the Design
 
-**Documentation:**
-- Write the validated design to `docs/plans/YYYY-MM-DD-<topic>-design.md`
-- Do NOT commit unless asked
+This skill produces NO files directly. The output is alignment between you and the user — a shared understanding of what to build and how.
+
+**Hand off to spec skill:**
+- If the approved design introduced new decisions or changed existing ones, invoke the spec skill to update `docs/SPEC.md`
+- The spec skill owns that file — do not edit SPEC.md directly from brainstorm
+- If the change is purely implementation-level (no design decisions), skip this step
 
 **Transition:**
 - Ask the user what they want to do next:
-  1. Write a spec (writing-spec skill) — for bigger projects needing a full project overview
-  2. Write a plan (writing-plans skill) — for creating step-by-step implementation instructions
-  3. Start building — for small, straightforward tasks
+  1. Write a plan (plan skill) — standard path, always preferred
+  2. Write a lightweight plan — for trivial edits, a 3-10 line plan is fine, but always write one
 
 ## Key Principles
 

@@ -1,15 +1,15 @@
 ---
-name: update-docs
+name: sync-docs
 description: Use after completing work to keep documentation in sync with codebase changes. Updates SPEC.md, technical docs, CLAUDE.md, and README.md as needed.
 ---
 
-# Update Docs
+# Sync Docs
 
 ## Overview
 
 Keep documentation in sync with the codebase. After completing work — across iterations, after features ship, after refactors — documentation drifts. This skill scans recent changes and updates all affected docs in one pass.
 
-**Announce at start:** "Using update-docs skill to sync documentation."
+**Announce at start:** "Using sync-docs skill to sync documentation."
 
 ## When to Use
 
@@ -46,6 +46,8 @@ Scan the repo for documentation files and determine which ones are impacted. Com
 For each affected doc, make targeted updates:
 
 **SPEC.md (`docs/SPEC.md`):**
+- If the design change is happening right now in this session, prefer handing off to the spec skill — it has live context on intent
+- Only update SPEC.md directly from sync-docs when catching drift from past work where the original context is gone (typical case: running this skill standalone to sync docs after the fact)
 - Update architecture if structural decisions changed
 - Update goals/non-goals if scope shifted
 - Update key decisions table if choices changed

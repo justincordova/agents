@@ -7,37 +7,54 @@ description: Use when you have a written implementation plan to execute with rev
 
 ## Overview
 
-Load plan, review critically, execute tasks in smart batches based on logical cohesion, report for review between batches.
+Load the plan from `docs/plans/`, review critically, execute tasks in smart batches based on logical cohesion, report for review between batches.
 
-**Announce at start:** "Using executing-plans skill to implement this plan."
+**Announce at start:** "Using execute skill to implement this plan."
+
+**Plans live in:** `docs/plans/`
 
 ## The Process
 
 ### Step 1: Load and Review Plan
 
 1. Read the plan file
-2. Review critically — identify questions or concerns
-3. If concerns: raise them before starting
-4. If no concerns: create task list and proceed
+2. Read `docs/SPEC.md` for context on design decisions
+3. Review critically — identify questions or concerns
+4. If concerns: raise them before starting
+5. If no concerns: create task list and proceed
 
 ### Step 2: Determine Batches
 
-Group tasks into batches based on **logical cohesion**, not a fixed count:
+A batch ends wherever a human reviewer would want a checkpoint. Use these rules in order:
 
-- Tasks that are **related** (same feature, same component, same domain area) = **one batch**, regardless of how many
-- Tasks that are **unrelated** (different components, different concerns) = **separate batches**
-- If the plan has phases with stage gates, each phase boundary is a natural batch break
+**Always end a batch before any of these:**
+
+1. **Database or schema change** — migrations, new tables, destructive alters
+2. **Public API contract change** — new endpoints, changed signatures, removed fields
+3. **New dependency** — adding a package, service, or infrastructure component
+4. **Cross-cutting refactor** — changes that touch 5+ files across different modules
+5. **Phase boundary in the plan** — if the plan defines phases, each phase is at least one batch
+6. **Anything with destructive or hard-to-reverse effects** — data migration, file deletion, force push
+
+**Otherwise, group tasks into the same batch when:**
+
+- They touch the same module, feature, or component
+- They share test files or integration points
+- Splitting them would leave the codebase in a broken intermediate state
+
+**Default:** when in doubt, make the batch smaller. Small batches = faster feedback loops = less wasted work when something's wrong.
 
 **Examples:**
 
 | Tasks | Batch Decision | Why |
 |-------|---------------|-----|
-| 8 tasks all building auth | 1 batch | All same domain |
-| 6 auth tasks + 2 DB schema tasks | 2 batches | Different domains |
-| 3 completely unrelated tasks | 3 batches | No cohesion |
-| Phase 1: 5 tasks, Phase 2: 4 tasks | 2 batches (or more within phases) | Phase boundary is a natural break |
+| 8 tasks all building auth module | 1 batch | Same component, no destructive effects |
+| 6 auth tasks + 2 DB schema tasks | 2 batches | Schema change is a checkpoint trigger |
+| 4 tasks: add dep, build service, add route, write tests | 2 batches (dep alone, then the rest) | New dependency is a checkpoint trigger |
+| 3 unrelated bugfixes in different modules | 3 batches | No cohesion, each worth reviewing separately |
+| Phase 1 (5 tasks) + Phase 2 (4 tasks) | 2+ batches, never combined | Phase boundary is a hard break |
 
-Present your batch grouping to the user before executing. Explain the grouping logic if it's not obvious.
+Present your batch grouping to the user before executing. Call out which checkpoint rule triggered each split.
 
 ### Step 3: Execute Batch
 
@@ -67,6 +84,7 @@ After all tasks complete and verified:
 - Run full test suite
 - Run build
 - Report completion
+- Offer to run retro: "All tasks complete. Want me to run a retro on this feature?" (Skip for trivial fixes.)
 
 ## When to Stop and Ask
 
@@ -81,6 +99,7 @@ After all tasks complete and verified:
 ## Key Principles
 
 - Review plan critically first
+- Reference SPEC.md for design context
 - Follow plan steps — don't skip ahead
 - Don't skip verifications
 - Batch by cohesion, not count

@@ -6,18 +6,20 @@ Justin Cordova
 
 ## Planning Workflow
 
-Two paths depending on scope:
+**All work:**
+brainstorm → spec → plan → execute → retro
 
-**New projects / major features:**
-brainstorm → spec → plan → execute (subagents for parallel work)
-
-**Maintenance, reviews, bugfixes, small features:**
-brainstorm → plan → execute
+**Small tasks (bugfixes, config changes):**
+brainstorm → plan (lightweight) → execute
 
 Rules:
-- Spec is for greenfield or major scope only. Don't spec a bugfix.
 - Always brainstorm first, even for small tasks. Understand before building.
+- Always write a plan, even if it's three lines. Execute always loads from a plan file.
 - Use the brainstorm skill, then follow the appropriate path.
+- `docs/SPEC.md` is a living document. The spec skill owns it. Brainstorm hands off to spec whenever design decisions change — during brainstorming, after retros, when pivoting.
+- Plans are disposable — create, execute, done. For changes, write a new plan.
+- Plans live in `docs/plans/<feature-name>-plan.md`.
+- After execution, run retro for any meaningful feature. Skip retro for trivial fixes.
 
 ## Git Conventions
 
