@@ -1,23 +1,21 @@
 ---
 name: spec
-description: Use when starting a new project or major feature to create a comprehensive project overview document before planning implementation
+description: Use when starting a new project or when design decisions need to be documented or updated. Creates and maintains the project-level specification.
 ---
 
 # Writing Specs
 
 ## Overview
 
-Create a spec.md — a big-picture project overview that captures the vision, scope, architecture, and key decisions before you start planning. This is NOT a step-by-step plan. It's the "what and why" document that the plan will later reference.
+Create and maintain `docs/SPEC.md` — the single source of truth for the project's design decisions, architecture, and constraints. This is NOT an implementation plan. It's the "what and why" document that plans will later reference.
 
-**Announce at start:** "Using writing-spec skill to create the project spec."
+**Announce at start:** "Using spec skill to update the project specification."
 
-**Save specs to:** `docs/SPEC.md`
+**Save to:** `docs/SPEC.md`
 
-## What a Spec Is
+## What the Spec Is
 
-A spec is the source of truth for WHAT you're building and WHY. It's the document you hand to someone and they understand the full picture. The writing-plans skill will later break this into implementation tasks.
-
-Think of it as a product brief + technical design combined.
+A living document that captures the current state of the project's design. It's updated whenever design decisions change — during brainstorming, after retros, or when pivoting. Think of it as a product brief + technical design that evolves with the project.
 
 ## Spec Document Structure
 
@@ -25,26 +23,18 @@ Think of it as a product brief + technical design combined.
 # [Project Name]
 
 ## Vision
-
 [2-3 sentences. What is this? Why does it exist? What problem does it solve?]
 
 ## Goals
-
 - [What success looks like — measurable if possible]
 - [Who the users are and what they need]
 - [Key outcomes]
 
 ## Non-Goals
-
 - [What this project explicitly does NOT cover]
 - [Scope boundaries — helps prevent scope creep]
 
-## Overview
-
-[A narrative walkthrough of the project. If someone reads nothing else, this section should give them the full picture. 1-3 paragraphs.]
-
 ## Architecture
-
 [High-level technical approach. Key technologies, patterns, infrastructure. Not implementation details — just the big structural decisions.]
 
 ### Key Components
@@ -55,36 +45,32 @@ Think of it as a product brief + technical design combined.
 [How data moves through the system. Can be prose, can be a simple diagram.]
 
 ## Key Decisions
-
 | Decision | Choice | Rationale |
 |----------|--------|-----------|
 | [e.g., Database] | [e.g., PostgreSQL] | [Why this over alternatives] |
-| [e.g., Auth] | [e.g., JWT] | [Why] |
 
 ## Edge Cases & Constraints
-
 - [Known gotchas, edge cases, constraints]
 - [Performance requirements]
 - [Security considerations]
 
 ## Open Questions
-
 - [Things that haven't been decided yet]
 - [Things that need user input]
 
 ## References
-
 - [Links to docs, inspirations, existing systems, etc.]
 ```
 
 ## Process
 
-1. **Gather context** — read any existing docs, design docs, brainstorming notes
-2. **Interview if needed** — ask the user questions to fill gaps (one at a time)
-3. **Draft the spec** — write each section, keep it concise
-4. **Present for review** — show the user, get feedback
-5. **Revise** — incorporate feedback
-6. **Save** — write to `docs/SPEC.md`
+1. **Check if SPEC.md exists** — if yes, read it to understand current state
+2. **Gather context** — read any existing docs, brainstorming notes, recent commits
+3. **Interview if needed** — ask the user questions to fill gaps (one at a time)
+4. **Update the spec** — add new sections for new features, update existing sections if decisions changed
+5. **Present changes** — show the user what changed, get feedback
+6. **Revise** — incorporate feedback
+7. **Save** — write to `docs/SPEC.md`
 
 ## Writing Good Specs
 
@@ -95,17 +81,28 @@ Think of it as a product brief + technical design combined.
 - Keep architecture high-level — boxes and arrows, not code
 - Call out edge cases and risks early
 - Leave open questions as open questions (don't guess)
+- Update existing sections when decisions change — don't leave stale info
 
 **Don't:**
-- Write implementation details (that's for the plan)
+- Include implementation tasks or step-by-step plans (that's for the plan skill)
 - Include code snippets (unless illustrating a contract or API shape)
 - Get bogged down in edge cases — list them, don't solve them
-- Make decisions that should be deferred to the plan phase
+- Duplicate information across sections
+
+## When to Update
+
+Update `docs/SPEC.md` whenever:
+- A new feature is being designed (brainstorm skill triggers this)
+- A design decision changes
+- New constraints or edge cases are discovered
+- Non-goals or scope boundaries shift
+
+The spec should always reflect the CURRENT state of the project's design, not historical decisions that were overridden.
 
 ## After the Spec
 
-Once the spec is approved:
+Once the spec is updated:
 
-"Spec saved to `docs/SPEC.md`. Next step: use the writing-plans skill to create an implementation plan from this spec."
+"Spec updated at `docs/SPEC.md`. Next step: use the plan skill to create an implementation plan."
 
-Offer to invoke writing-plans next.
+Offer to invoke plan next.
