@@ -6,20 +6,25 @@ Justin Cordova
 
 ## Planning Workflow
 
-**All work:**
-brainstorm → spec → plan → execute → retro
+**New features (design decisions needed):**
+brainstorm → design doc → plan → execute → (iterate) → sync-docs when ready
 
-**Small tasks (bugfixes, config changes):**
-brainstorm → plan (lightweight) → execute
+**Small iterations (bugfixes, tweaks, mechanical changes):**
+(skip brainstorm) → plan (lightweight) → execute
+
+**Greenfield (no SPEC.md yet):**
+brainstorm → spec (interview mode, writes initial SPEC.md) → plan → execute
 
 Rules:
-- Always brainstorm first, even for small tasks. Understand before building.
-- Always write a plan, even if it's three lines. Execute always loads from a plan file.
-- Use the brainstorm skill, then follow the appropriate path.
-- `docs/SPEC.md` is a living document. The spec skill owns it. Brainstorm hands off to spec whenever design decisions change — during brainstorming, after retros, when pivoting.
-- Plans are disposable — create, execute, done. For changes, write a new plan.
-- Plans live in `docs/plans/<feature-name>-plan.md`.
-- After execution, run retro for any meaningful feature. Skip retro for trivial fixes.
+- **Brainstorm is optional.** Use it when the work involves genuine design decisions, multiple viable approaches, or unclear scope. Skip it for mechanical changes where the design is obvious.
+- **Always write a plan, even if it's three lines.** Execute always loads from a plan file. This is the session-boundary artifact for small iterations.
+- **Design docs are the session-boundary artifact for new features.** Brainstorm writes `docs/designs/<feature>.md`. A new session can pick up at the plan step without losing context.
+- **SPEC.md is only updated when the user decides to reconcile.** Either via sync-docs (which merges implemented design docs into SPEC.md and deletes them) or via direct spec skill invocation. Never updated automatically from brainstorm, plan, or execute.
+- **SPEC.md has one owner — the spec skill.** Brainstorm never writes to SPEC.md (except via greenfield handoff). Plan never writes to SPEC.md. Execute never writes to SPEC.md. sync-docs can edit SPEC.md directly when reconciling drift.
+- **sync-docs is on-demand, not automatic.** Run it when you want to reconcile docs after iterating — typically after 3-5 small changes have accumulated, or after a feature ships and stabilizes.
+- **Plans are disposable.** Create, execute, done. For changes, write a new plan.
+- Plans live in `docs/plans/<feature-name>-plan.md`. Design docs live in `docs/designs/<feature-name>.md` and persist until sync-docs merges them into SPEC.md.
+- When reading SPEC.md, always check `docs/designs/` for in-flight features that SPEC.md may not reflect yet.
 
 ## Git Conventions
 

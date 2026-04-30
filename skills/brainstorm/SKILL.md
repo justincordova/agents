@@ -1,37 +1,57 @@
 ---
 name: brainstorm
-description: "Use before any creative work - creating features, building components, adding functionality, or modifying behavior. Explores user intent, requirements and design before implementation."
+description: "Use when a task involves genuine design decisions — new features, new components, unclear scope, or multiple viable approaches. Skip for mechanical changes where the design is obvious. Produces an approved design doc as the session-boundary artifact."
 ---
 
 # Brainstorm
 
 ## Overview
 
-Turn ideas into fully formed designs through collaborative dialogue. Understand the project, ask questions one at a time, propose approaches, present the design, get approval.
+Turn ideas into fully formed designs through collaborative dialogue. Understand the project, ask questions one at a time, propose approaches, present the design, get approval, write the design doc.
 
 <HARD-GATE>
 Do NOT write any code, scaffold any project, or take any implementation action until you have presented a design and the user has approved it.
 </HARD-GATE>
 
-## Anti-Pattern: "This Is Too Simple To Need A Design"
+## When to Use Brainstorm
 
-Every project goes through this process. A todo list, a single-function utility, a config change — all of them. "Simple" projects are where unexamined assumptions cause the most wasted work. The design can be short, but you MUST present it and get approval.
+**Use brainstorm when:**
+- Building a new feature, component, or abstraction
+- Multiple approaches exist and trade-offs need exploring
+- Scope is unclear
+- The user asks for help with a design decision
+- Starting a new project (greenfield — see mode below)
 
-## Checklist
+**Skip brainstorm when:**
+- The change is mechanical (rename, config tweak, add a log line)
+- The design is obvious and singular (only one sensible way to do it)
+- The user already knows exactly what they want and just needs it built
+- Iterating on already-designed work with no new decisions
+
+When skipped, go straight to the plan skill. Even small iterations need a plan file — execute always loads from one.
+
+## Mode: Greenfield vs Normal
+
+**Check first:** does `docs/SPEC.md` exist?
+
+- **No SPEC.md → Greenfield mode.** This is project initialization. Skip the design doc step. Hand off directly to the spec skill in interview mode — the SPEC.md *is* the design doc for initialization. Jump to "Greenfield Transition" below.
+- **SPEC.md exists → Normal mode.** Follow the full checklist below.
+
+## Checklist (Normal Mode)
 
 Create a task for each item and complete them in order:
 
-1. **Explore project context** — check files, docs, recent commits, read `docs/SPEC.md` if it exists
+1. **Explore project context** — check files, docs, recent commits, read `docs/SPEC.md`
 2. **Ask clarifying questions** — one at a time, understand purpose/constraints/success criteria
 3. **Propose 2-3 approaches** — with trade-offs and your recommendation
 4. **Present design** — in sections scaled to complexity, get user approval after each section
-5. **Hand off to spec skill** — if design decisions changed, invoke the spec skill to update `docs/SPEC.md`
-6. **Transition** — ask user what's next: write a plan or start building
+5. **Write design doc** — save the approved design to `docs/designs/<feature-name>.md`
+6. **Transition** — hand off to plan skill (design doc is the session-boundary artifact)
 
 ## Process Flow
 
 ```
-Explore context → Ask questions → Propose approaches → Present design → User approves? → Hand off to spec → Transition
+Explore context → Ask questions → Propose approaches → Present design → User approves? → Write design doc → Transition
                                                                        ↓
                                                             Revise and re-present
 ```
@@ -40,7 +60,8 @@ Explore context → Ask questions → Propose approaches → Present design → 
 
 **Understanding the idea:**
 - Check the current project state first (files, docs, recent commits)
-- Read `docs/SPEC.md` if it exists to understand current design decisions
+- Read `docs/SPEC.md` to understand current design decisions
+- Check `docs/designs/` for any in-flight feature design docs — SPEC.md may not reflect these yet
 - Ask questions one at a time to refine the idea
 - Prefer multiple choice questions when possible
 - Focus on: purpose, constraints, success criteria
@@ -55,19 +76,60 @@ Explore context → Ask questions → Propose approaches → Present design → 
 - Ask after each section whether it looks right
 - Cover: architecture, components, data flow, error handling, testing
 
-## After the Design
+## After the Design (Normal Mode)
 
-This skill produces NO files directly. The output is alignment between you and the user — a shared understanding of what to build and how.
+Once the design is approved, write it to `docs/designs/<feature-name>.md`. This file is the session-boundary artifact — a new agent session can pick up the plan step from here without needing the brainstorming context.
 
-**Hand off to spec skill:**
-- If the approved design introduced new decisions or changed existing ones, invoke the spec skill to update `docs/SPEC.md`
-- The spec skill owns that file — do not edit SPEC.md directly from brainstorm
-- If the change is purely implementation-level (no design decisions), skip this step
+**Design doc structure:**
+
+```markdown
+# <Feature Name>
+
+## Context
+[1-2 paragraphs. What is this? Why are we building it? How does it fit the existing system?]
+
+## Goals
+- [What success looks like]
+- [Key outcomes]
+
+## Non-Goals
+- [What this explicitly does NOT cover]
+
+## Design
+[Architecture, components, data flow. Scale detail to complexity — a few paragraphs for simple features, more for complex ones.]
+
+## Key Decisions
+| Decision | Choice | Rationale |
+|----------|--------|-----------|
+
+## Rejected Alternatives
+- [Approach X] — [why rejected]
+- [Approach Y] — [why rejected]
+
+## Edge Cases & Constraints
+- [Known gotchas, performance, security]
+
+## Open Questions
+- [Anything unresolved — should be empty by the time brainstorm ends]
+```
+
+Include the "Rejected Alternatives" section so a fresh agent reading the design doc later knows what was already ruled out and why.
+
+**Do NOT update SPEC.md from brainstorm.** The plan skill triggers the SPEC.md merge after the plan is written. SPEC.md only receives design decisions that have been proven buildable.
 
 **Transition:**
-- Ask the user what they want to do next:
-  1. Write a plan (plan skill) — standard path, always preferred
-  2. Write a lightweight plan — for trivial edits, a 3-10 line plan is fine, but always write one
+- Tell the user: "Design saved to `docs/designs/<feature>.md`. Ready for `/plan` — can be a new session."
+- If the user wants to plan immediately, invoke the plan skill
+
+## Greenfield Transition
+
+When no `docs/SPEC.md` exists:
+
+- Skip writing a design doc
+- Hand off to the spec skill (Mode 2: initial spec interview)
+- Tell the user: "No SPEC.md found. Handing off to spec skill to create the initial project spec — that becomes the design foundation."
+- The spec skill interviews the user and writes SPEC.md directly
+- Once SPEC.md exists, subsequent features go through normal mode
 
 ## Key Principles
 

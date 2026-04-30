@@ -15,7 +15,7 @@ Create and maintain `docs/SPEC.md` — the single source of truth for the projec
 
 ## What the Spec Is
 
-A living document that captures the current state of the project's design. It's updated whenever design decisions change — during brainstorming, after retros, or when pivoting. Think of it as a product brief + technical design that evolves with the project.
+A living document that captures the current state of the project's design. SPEC.md is updated via sync-docs (which merges implemented design docs) or via direct edits through this skill. Think of it as a product brief + technical design that evolves with the project.
 
 ## Spec Document Structure
 
@@ -62,15 +62,31 @@ A living document that captures the current state of the project's design. It's 
 - [Links to docs, inspirations, existing systems, etc.]
 ```
 
-## Process
+## Invocation Modes
 
-1. **Check if SPEC.md exists** — if yes, read it to understand current state
-2. **Gather context** — read any existing docs, brainstorming notes, recent commits
-3. **Interview if needed** — ask the user questions to fill gaps (one at a time)
-4. **Update the spec** — add new sections for new features, update existing sections if decisions changed
-5. **Present changes** — show the user what changed, get feedback
-6. **Revise** — incorporate feedback
-7. **Save** — write to `docs/SPEC.md`
+The spec skill is invoked in two situations.
+
+### Mode 1: Direct edit
+
+Triggered when SPEC.md needs changes but no design doc is involved. Common cases:
+- User invokes the skill directly to update SPEC.md
+- The user wants to explicitly edit the spec outside of sync-docs
+
+1. **Read SPEC.md**
+2. **Apply targeted edits** from user instructions
+3. **Present diff** to the user for approval
+4. **Save**
+
+### Mode 2: Initial project spec (greenfield)
+
+Triggered by brainstorm when no SPEC.md exists yet. The SPEC.md *is* the design artifact for project initialization.
+
+1. **Interview** — ask questions one at a time to fill gaps (vision, goals, non-goals, architecture, key decisions)
+2. **Draft the spec**
+3. **Present for review**
+4. **Revise and save**
+
+Note: design doc merging is handled by sync-docs, not by the spec skill. When sync-docs runs, it merges any implemented design docs into SPEC.md and deletes them.
 
 ## Writing Good Specs
 
@@ -92,17 +108,17 @@ A living document that captures the current state of the project's design. It's 
 ## When to Update
 
 Update `docs/SPEC.md` whenever:
-- A new feature is being designed (brainstorm skill triggers this)
-- A design decision changes
-- New constraints or edge cases are discovered
-- Non-goals or scope boundaries shift
+- The user directly invokes the spec skill to make changes (Mode 1)
+- Starting a new project with no SPEC.md (brainstorm triggers Mode 2)
+- sync-docs merges an implemented design doc into SPEC.md (handled by sync-docs, not this skill)
 
 The spec should always reflect the CURRENT state of the project's design, not historical decisions that were overridden.
 
+**Never updated from brainstorm or plan.** Brainstorm writes a design doc. Plan reads it. SPEC.md gets updated when the user runs sync-docs or directly invokes the spec skill.
+
 ## After the Spec
 
-Once the spec is updated:
+Once SPEC.md is updated:
 
-"Spec updated at `docs/SPEC.md`. Next step: use the plan skill to create an implementation plan."
-
-Offer to invoke plan next.
+- **Mode 1 (direct edit):** "SPEC.md updated."
+- **Mode 2 (greenfield):** "Initial spec saved at `docs/SPEC.md`. Ready for `/plan` on the first feature."

@@ -8,18 +8,31 @@ Shared between [Claude Code](https://docs.anthropic.com/en/docs/claude-code) and
 
 ## The workflow
 
-Every task goes through brainstorming first. Then the path splits:
+The workflow branches on whether the work involves design decisions.
 
 ```
-All work:
-  brainstorm → spec → plan → execute → retro
+New features (design decisions needed):
+  brainstorm → design doc → plan → execute → (iterate) → sync-docs when ready
 
-Small tasks (bugfixes, config changes):
-  brainstorm → plan (lightweight) → execute
+Small iterations (bugfixes, tweaks, mechanical changes):
+  (skip brainstorm) → plan (lightweight) → execute
+
+Greenfield (no SPEC.md yet):
+  brainstorm → spec (interview mode) → plan → execute
 
 Issue-driven work:
   /analyze-issue → plan → execute
 ```
+
+**Brainstorm is optional.** Use it when there are real design decisions to make. Skip it for mechanical changes.
+
+**Design docs** (`docs/designs/<feature>.md`) are the session-boundary artifact for new features. Write one during brainstorm, pick up from it in a fresh session at plan time. Design docs persist until sync-docs merges them into SPEC.md.
+
+**Plans** (`docs/plans/<feature>-plan.md`) are always required, even for tiny changes. The plan file is what execute loads from — it's the handoff artifact for every task regardless of size.
+
+**SPEC.md** is only updated when the user decides to reconcile — via sync-docs (which merges implemented design docs) or via direct spec skill invocation. Never automatically.
+
+**Sync-docs** is on-demand. Run it when docs feel stale after iterating. It merges design docs into SPEC.md, catches drift, and reconciles all project documentation in one pass.
 
 **Brainstorm** is the non-negotiable step. The agent explores the problem, asks clarifying questions one at a time, proposes 2-3 approaches with trade-offs, and presents a design for approval. No code gets written until the user approves.
 
@@ -35,16 +48,16 @@ Skills define *how the agent behaves* — behavioral context loaded when a task 
 
 | Skill | What it does |
 |---|---|
-| **brainstorm** | Collaborative design through questions, approaches, and approval gates |
-| **spec** | Comprehensive project specs (`docs/SPEC.md`) before any planning |
-| **plan** | High-level implementation plans — direction, not dictation |
+| **brainstorm** | Collaborative design through questions, approaches, and approval gates. Produces a design doc. |
+| **spec** | Owns `docs/SPEC.md`. Three modes: merge a design doc, direct edit, or initial spec interview. |
+| **plan** | Detailed implementation plans with three input modes: design doc, user instructions, or greenfield SPEC.md. |
 | **execute** | Smart batch execution grouped by logical cohesion |
-| **retro** | Post-implementation review — capture lessons, update SPEC.md if reality diverged from design |
-| **sync-docs** | Sync all documentation with recent codebase changes |
+| **sync-docs** | On-demand reconciliation of docs with the codebase |
 | **analyze-issue** | Fetch GitHub issues, break down requirements, produce an impl spec |
 | **code-review** | Systematic review — correctness, security, concurrency, design |
 | **debugging** | Structured debugging — reproduce, isolate, fix, verify |
 | **testing** | Test strategy and implementation following project conventions |
+| **agents-md** | Generate or update AGENTS.md — structured onboarding context for AI agents |
 | **writing-skills** | Create and edit skills for both tools |
 | **find-skills** | Discover and install community skills |
 | **agent-browser** | Browser automation via CLI |
@@ -53,7 +66,7 @@ Skills define *how the agent behaves* — behavioral context loaded when a task 
 
 Slash commands are saved prompt templates — shortcuts that trigger the corresponding skill.
 
-`/brainstorm` `/spec` `/plan` `/execute` `/retro` `/sync-docs` `/review` `/analyze-issue` `/writing-skills`
+`/brainstorm` `/spec` `/plan` `/execute` `/sync-docs` `/review` `/analyze-issue` `/agents-md` `/writing-skills`
 
 ### Agents
 

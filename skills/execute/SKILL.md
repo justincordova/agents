@@ -84,7 +84,7 @@ After all tasks complete and verified:
 - Run full test suite
 - Run build
 - Report completion
-- Offer to run retro: "All tasks complete. Want me to run a retro on this feature?" (Skip for trivial fixes.)
+- If docs feel stale or the feature involved multiple iterations, suggest running sync-docs. Otherwise say nothing — sync-docs is on-demand, not automatic.
 
 ## When to Stop and Ask
 

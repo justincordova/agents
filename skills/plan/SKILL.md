@@ -15,14 +15,52 @@ Create a detailed implementation plan from the spec. The plan must be specific e
 
 ## Philosophy
 
-The plan is a handoff document. It's written after brainstorming and spec updates, then executed by any agent. The executing agent should be able to follow the plan without guessing about architecture, file locations, or implementation approach. Be specific and detailed.
+The plan is a handoff document. It's written after brainstorming, then executed by any agent. The executing agent should be able to follow the plan without guessing about architecture, file locations, or implementation approach. Be specific and detailed.
+
+## Inputs: Three Starting Modes
+
+The plan skill handles three starting situations. Detect which applies, then follow the matching input list.
+
+### Mode A: Design doc exists (post-brainstorm)
+
+Used when brainstorm ran and produced a design doc. The standard path for new features.
+
+1. **`docs/designs/<feature-name>.md`** — the approved design. Primary input.
+2. **`docs/SPEC.md`** — for patterns, conventions, constraints.
+3. **Other files in `docs/designs/`** — check for in-flight features that SPEC.md doesn't reflect yet. Avoid conflicts with their design decisions.
+4. **Relevant code** — files the plan will touch.
+
+### Mode B: No design doc (small iteration)
+
+Used when the user skipped brainstorm because the work is mechanical or obvious. The user has described what they want directly in chat.
+
+1. **The user's instructions in the current conversation** — this is the design.
+2. **`docs/SPEC.md`** — for patterns, conventions, constraints.
+3. **`docs/designs/`** — check for in-flight features that SPEC.md doesn't reflect yet.
+4. **Relevant code** — files the plan will touch.
+
+If the user's instructions are ambiguous or imply design decisions, stop and ask whether brainstorm is needed before continuing.
+
+### Mode C: Greenfield first feature
+
+Used when the spec skill just created an initial SPEC.md and you're planning the first feature. No design doc exists because SPEC.md *is* the design.
+
+1. **`docs/SPEC.md`** — primary input, recently created by spec skill.
+2. **Relevant code** — usually minimal; this is a new project.
+
+## Which Mode Triggers the SPEC.md Merge?
+
+Only **Mode A** triggers a spec merge — it's the only mode with a design doc to merge.
+
+- Mode B: no design doc → no merge → skip straight to execute handoff.
+- Mode C: SPEC.md already up to date (spec skill just wrote it) → skip merge → straight to execute handoff.
 
 ## Plan Size: Scale to the Work
 
-Not every task needs a multi-phase plan. Match plan weight to task weight:
+Match plan weight to task weight. Defaulting to a full plan for every task is token waste.
 
-- **Lightweight plan (3-10 lines)** — bugfixes, config changes, small refactors, single-file edits. One or two tasks, minimal detail, just enough for the executing agent to know what to touch and how to verify.
-- **Standard plan** — most features. Multiple tasks, each with What/Why/How/Verify.
+- **Lightweight plan (3-10 lines)** — use when: Mode B, single file touched, one obvious task, no dependencies. Write one task with What + How + Verify. Skip Why when there's no ordering to justify.
+- **Standard plan** — most features in Mode A. Multiple tasks, each with What/Why/How/Verify.
 - **Phased plan** — cross-cutting work with real stage gates (see "When to Use Phases").
 
 Always write a plan file. Never skip this step — the execute skill requires one.
@@ -137,8 +175,8 @@ If any item fails and you can't fix it from context, stop and ask the user rathe
 
 ## Execution Handoff
 
-After saving the plan:
-
-"Plan saved to `docs/plans/<filename>.md`. Want me to start executing it, or would you like to review it first?"
+"Plan saved to `docs/plans/<filename>.md`. Want me to start executing, or would you like to review first?"
 
 If executing: use the execute skill.
+
+SPEC.md updates happen later, on-demand, via sync-docs. The design doc stays in `docs/designs/` until then — it's the source of truth for the current feature while work is in progress.
