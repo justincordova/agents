@@ -57,16 +57,18 @@ Skills define *how the agent behaves* — behavioral context loaded when a task 
 | **code-review** | Systematic review — correctness, security, concurrency, design |
 | **debugging** | Structured debugging — reproduce, isolate, fix, verify |
 | **testing** | Test strategy and implementation following project conventions |
-| **agents-md** | Generate or update AGENTS.md — structured onboarding context for AI agents |
+| **sync-agents** | Generate or update AGENTS.md — structured onboarding context for AI agents |
+| **gather-context** | Quick codebase scan — structure, conventions, deps, patterns. Chat summary, no files. |
 | **writing-skills** | Create and edit skills for both tools |
 | **find-skills** | Discover and install community skills |
+| **frontend-design** | Production-grade frontend interfaces with distinctive, non-generic aesthetics |
 | **agent-browser** | Browser automation via CLI |
 
 ### Commands
 
 Slash commands are saved prompt templates — shortcuts that trigger the corresponding skill.
 
-`/brainstorm` `/spec` `/plan` `/execute` `/sync-docs` `/review` `/analyze-issue` `/agents-md` `/writing-skills`
+`/brainstorm` `/spec` `/plan` `/execute` `/sync-docs` `/sync-agents` `/gather-context` `/review` `/analyze-issue` `/writing-skills`
 
 ### Agents
 
@@ -74,11 +76,11 @@ One subagent — **code-reviewer** — that can be dispatched for parallel code 
 
 ### Rules
 
-Domain-specific rules loaded via `@rules/` in CLAUDE.md:
+Domain-specific rules loaded via `@rules/` in AGENTS.md:
 - **code-quality** — testing philosophy, review standards, error handling, logging
 - **obsidian** — vault conventions for note-taking
 
-### CLAUDE.md
+### AGENTS.md
 
 The foundational config — developer info, planning workflow, git conventions (conventional commits, no AI attribution, pre-commit gate), code style, and general rules. Shared across both tools.
 
@@ -88,7 +90,7 @@ The foundational config — developer info, planning workflow, git conventions (
 git clone git@github.com:justincordova/agents.git ~/agent
 
 # Claude Code
-ln -s ~/agent/CLAUDE.md ~/.claude/CLAUDE.md
+ln -s ~/agent/AGENTS.md ~/.claude/CLAUDE.md
 ln -s ~/agent/RTK.md ~/.claude/RTK.md
 ln -s ~/agent/agents ~/.claude/agents
 ln -s ~/agent/commands ~/.claude/commands
@@ -99,7 +101,7 @@ for skill in ~/agent/skills/*/; do
   ln -s "$skill" ~/.claude/skills/"$(basename "$skill")"
 done
 
-# OpenCode (reads ~/.claude/CLAUDE.md as fallback, so no separate link needed)
+# OpenCode (reads AGENTS.md as its agent config)
 ln -s ~/agent/agents ~/.opencode/agents
 ln -s ~/agent/commands ~/.opencode/commands
 ln -s ~/agent/rules ~/.opencode/rules
@@ -111,4 +113,4 @@ done
 
 ## Why
 
-Most AI coding configs are a CLAUDE.md with some rules and a prayer. This is a workflow — brainstorm before building, execute in batches, review at every checkpoint, and never let the agent run unsupervised.
+Most AI coding configs are an AGENTS.md with some rules and a prayer. This is a workflow — brainstorm before building, execute in batches, review at every checkpoint, and never let the agent run unsupervised.

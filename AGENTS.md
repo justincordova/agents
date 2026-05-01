@@ -1,4 +1,4 @@
-# CLAUDE.md
+# AGENTS.md
 
 ## Developer
 
@@ -28,7 +28,7 @@ Rules:
 
 ## Git Conventions
 
-Commits are feature-scoped and written by the developer. Claude does NOT author
+Commits are feature-scoped and written by the developer. The agent does NOT author
 or suggest commit messages unless explicitly asked.
 
 Format: `type(scope): description`
@@ -53,8 +53,8 @@ Rules:
 ### Pre-Commit Gate
 
 Before any commit, the project must build and pass. Run in order:
-1. Build the project (e.g. `go build ./...`, `npm run build`, etc.)
-2. Run tests (e.g. `go test ./...`, `npm test`, etc.)
+1. Build the project (e.g. `go build ./...`, `npm run build`, `dotnet build`, etc.)
+2. Run tests (e.g. `go test ./...`, `npm test`, `dotnet test`, etc.)
 3. Run type checking / linting if applicable
 
 If anything fails, fix it. Do not commit broken code.
