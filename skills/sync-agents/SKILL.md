@@ -1,15 +1,15 @@
 ---
-name: agents-md
+name: sync-agents
 description: Use when the user asks to create or update an AGENTS.md file, or when setting up agent context for a project. Generates a structured onboarding document for AI agents working in a codebase.
 ---
 
-# Agents MD
+# Sync Agents
 
 ## Overview
 
 Generate or update `AGENTS.md` — a structured onboarding file that gives AI agents enough context to work effectively in a codebase without reading every file. Think of it as a "README for agents."
 
-**Announce at start:** "Using agents-md skill to generate AGENTS.md."
+**Announce at start:** "Using sync-agents skill to generate AGENTS.md."
 
 ## When to Use
 
@@ -19,14 +19,14 @@ Generate or update `AGENTS.md` — a structured onboarding file that gives AI ag
 
 ## Output Location
 
-Write to `AGENTS.md` in the project root (same directory as `package.json`, `go.mod`, etc.).
+Write to `AGENTS.md` in the project root (same directory as `package.json`, `go.mod`, `.csproj`, etc.).
 
 ## Discovery Phase
 
 Before writing anything, scan the codebase to extract all sections. Run these in parallel where possible:
 
 ### 1. Project identity
-- Read `package.json`, `go.mod`, `Cargo.toml`, `pyproject.toml`, or equivalent
+- Read `package.json`, `go.mod`, `Cargo.toml`, `pyproject.toml`, `.csproj`, or equivalent
 - Identify: name, language, framework, runtime version
 - Read `README.md` or `docs/SPEC.md` for the one-line project description
 
@@ -37,12 +37,12 @@ Before writing anything, scan the codebase to extract all sections. Run these in
 - Note monorepo structure if present (workspaces, packages, apps)
 
 ### 3. Commands
-- Check `package.json` scripts, `Makefile`, `justfile`, `Taskfile.yml`, or equivalent
+- Check `package.json` scripts, `Makefile`, `justfile`, `Taskfile.yml`, `.csproj` targets, or equivalent
 - Identify: dev server, build, test, lint, format, typecheck, migration
 - Determine the pre-commit gate (which commands must pass before committing)
 
 ### 4. Tech stack
-- Scan `package.json` dependencies, `go.mod` requires, `Cargo.toml` dependencies
+- Scan `package.json` dependencies, `go.mod` requires, `Cargo.toml` dependencies, `.csproj` package references
 - Read config files: `tsconfig.json`, `biome.json`, `.eslintrc`, `.golangci.yml`, `tailwind.config.*`, `vite.config.*`, `docker-compose.yml`
 - Build a table mapping each layer to its tool
 
@@ -64,7 +64,7 @@ Before writing anything, scan the codebase to extract all sections. Run these in
 - Note any counter-intuitive patterns that an agent might "fix" incorrectly
 
 ### 8. Conventions and non-negotiables
-- Read `CLAUDE.md`, `.editorconfig`, linter configs
+- Read `AGENTS.md`, `.editorconfig`, linter configs
 - Identify hard rules (e.g., "no logging to stdout", "use stdlib slog only")
 - Note assertion libraries, testing patterns, code style mandates
 

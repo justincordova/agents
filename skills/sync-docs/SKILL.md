@@ -48,7 +48,7 @@ Scan the repo for documentation files and determine which ones are impacted. Com
 | `MANUAL_TESTING.md` | Manual test steps or flows changed |
 | `LOGGING.md` | Logging approach, format, or tooling changed |
 | `AGENTS.md` | Repo structure, commands, tech stack, or architectural patterns changed |
-| `CLAUDE.md` | Project conventions, tooling, or workflow changed |
+| `AGENTS.md` | Project conventions, tooling, or workflow changed |
 | `README.md` | Anything a user cloning the repo would need to know |
 
 ### Step 3: Update Each Doc
@@ -73,13 +73,13 @@ For each affected doc, make targeted updates:
 - Add sections for new capabilities
 
 **AGENTS.md:**
-- ONLY update if one exists — do not create one during sync (use the agents-md skill for creation)
+- ONLY update if one exists — do not create one during sync (use the sync-agents skill for creation)
 - Update when: repo layout changed, commands changed, new dependencies added, architectural patterns shifted, new modules created, or gotchas discovered
 - Do NOT rewrite the whole file — update only the sections that drifted
-- Load the agents-md skill's template if you need to add new sections that don't exist yet
+- Load the sync-agents skill's template if you need to add new sections that don't exist yet
 - Keep under 400 lines — cut aggressively, every line competes with agent context
 
-**CLAUDE.md:**
+**AGENTS.md:**
 - ONLY update if project conventions, tooling, or workflow changed
 - Keep it concise — this file is loaded into memory
 - Add new rules or constraints, remove stale ones
@@ -103,7 +103,7 @@ Updating 3 docs:
 - TESTING.md: updated test commands to use vitest instead of jest
 - README.md: updated install steps to include new env variable
 
-Skipping CLAUDE.md — no convention changes.
+Skipping AGENTS.md — no convention changes.
 ```
 
 Wait for approval before saving.
@@ -116,7 +116,7 @@ Write all approved changes. Do NOT commit unless asked.
 
 - Only update what changed — don't rewrite untouched sections
 - AGENTS.md updates are section-targeted — don't regenerate the whole file
-- CLAUDE.md stays lean — it's loaded into every session
+- AGENTS.md stays lean — it's loaded into every session
 - README is user-facing — think "first-time cloner"
 - Plans are historical — never update them
 - Present changes before saving — no surprise rewrites
