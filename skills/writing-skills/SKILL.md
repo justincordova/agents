@@ -22,7 +22,7 @@ Skills are reference guides for proven techniques and patterns. They help future
 **Don't create for:**
 - One-off solutions
 - Standard practices well-documented elsewhere
-- Project-specific conventions (put in CLAUDE.md)
+- Project-specific conventions (put in AGENTS.md)
 - Things enforceable by tooling (linters, compilers)
 
 ## Directory Structure
