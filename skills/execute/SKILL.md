@@ -7,21 +7,24 @@ description: Use when you have a written implementation plan to execute with rev
 
 ## Overview
 
-Load the plan from `docs/plans/`, review critically, execute tasks in smart batches based on logical cohesion, report for review between batches.
+Execute implementation work. Can load from a plan file (if one exists) or from a design doc, or just follow the developer's direct instructions for small iterations.
 
 **Announce at start:** "Using execute skill to implement this plan."
 
 **Plans live in:** `docs/plans/`
+**Design docs live in:** `docs/designs/`
 
 ## The Process
 
-### Step 1: Load and Review Plan
+### Step 1: Load Context
 
-1. Read the plan file
-2. Read `docs/SPEC.md` for context on design decisions
-3. Review critically — identify questions or concerns
-4. If concerns: raise them before starting
-5. If no concerns: create task list and proceed
+Determine which starting mode applies:
+
+1. **Plan file exists** — read the plan file from `docs/plans/`
+2. **Design doc exists (no plan)** — read the design doc from `docs/designs/`
+3. **Small iteration (no plan, no design doc)** — use the developer's instructions directly
+
+In all cases, read `docs/SPEC.md` for context on design decisions. Review critically — identify questions or concerns. If concerns: raise them before starting. If no concerns: create task list and proceed.
 
 ### Step 2: Determine Batches
 

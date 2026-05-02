@@ -28,7 +28,7 @@ Do NOT write any code, scaffold any project, or take any implementation action u
 - The user already knows exactly what they want and just needs it built
 - Iterating on already-designed work with no new decisions
 
-When skipped, go straight to the plan skill. Even small iterations need a plan file — execute always loads from one.
+When skipped, go straight to execute.
 
 ## Mode: Greenfield vs Normal
 
@@ -46,14 +46,14 @@ Create a task for each item and complete them in order:
 3. **Propose 2-3 approaches** — with trade-offs and your recommendation
 4. **Present design** — in sections scaled to complexity, get user approval after each section
 5. **Write design doc** — save the approved design to `docs/designs/<feature-name>.md`
-6. **Transition** — hand off to plan skill (design doc is the session-boundary artifact)
+6. **Transition** — hand off to the developer. Design doc is the session-boundary artifact. Plan is optional — only when the developer explicitly asks for it or the design is complex enough to warrant one.
 
 ## Process Flow
 
 ```
-Explore context → Ask questions → Propose approaches → Present design → User approves? → Write design doc → Transition
-                                                                       ↓
-                                                            Revise and re-present
+Explore context → Ask questions → Propose approaches → Present design → User approves? → Write design doc → Done (developer decides next step)
+                                                                        ↓
+                                                             Revise and re-present
 ```
 
 ## The Process
@@ -115,11 +115,14 @@ Once the design is approved, write it to `docs/designs/<feature-name>.md`. This 
 
 Include the "Rejected Alternatives" section so a fresh agent reading the design doc later knows what was already ruled out and why.
 
-**Do NOT update SPEC.md from brainstorm.** The plan skill triggers the SPEC.md merge after the plan is written. SPEC.md only receives design decisions that have been proven buildable.
+**Do NOT update SPEC.md from brainstorm.** SPEC.md is only updated via sync-docs or the spec skill.
 
 **Transition:**
-- Tell the user: "Design saved to `docs/designs/<feature>.md`. Ready for `/plan` — can be a new session."
-- If the user wants to plan immediately, invoke the plan skill
+- Tell the user: "Design saved to `docs/designs/<feature>.md`."
+- Do NOT suggest or push for `/plan`. The developer decides when a plan is needed.
+- If the design is straightforward, the developer can go straight to execute using the design doc as context.
+- If the design is complex, the developer will invoke `/plan` themselves (possibly with a stronger model).
+- Only invoke the plan skill if the developer explicitly asks for it.
 
 ## Greenfield Transition
 

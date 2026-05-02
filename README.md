@@ -12,10 +12,10 @@ The workflow branches on whether the work involves design decisions.
 
 ```
 New features (design decisions needed):
-  brainstorm → design doc → plan → execute → (iterate) → sync-docs when ready
+  brainstorm → design doc → (plan only if complex) → execute → (iterate) → sync-docs when ready
 
 Small iterations (bugfixes, tweaks, mechanical changes):
-  (skip brainstorm) → plan (lightweight) → execute
+  (skip brainstorm) → execute
 
 Greenfield (no SPEC.md yet):
   brainstorm → spec (interview mode) → plan → execute
@@ -26,9 +26,9 @@ Issue-driven work:
 
 **Brainstorm is optional.** Use it when there are real design decisions to make. Skip it for mechanical changes.
 
-**Design docs** (`docs/designs/<feature>.md`) are the session-boundary artifact for new features. Write one during brainstorm, pick up from it in a fresh session at plan time. Design docs persist until sync-docs merges them into SPEC.md.
+**Design docs** (`docs/designs/<feature>.md`) are the session-boundary artifact for new features. Write one during brainstorm, pick up from it in a fresh session. Design docs persist until sync-docs merges them into SPEC.md.
 
-**Plans** (`docs/plans/<feature>-plan.md`) are always required, even for tiny changes. The plan file is what execute loads from — it's the handoff artifact for every task regardless of size.
+**Plans are always opt-in.** After brainstorm produces a design doc, the developer decides whether to write a plan. Simple implementations go straight to execute. Small iterations skip plans entirely. Only invoke `/plan` when the design is complex enough to warrant one — typically with a stronger model.
 
 **SPEC.md** is only updated when the user decides to reconcile — via sync-docs (which merges implemented design docs) or via direct spec skill invocation. Never automatically.
 

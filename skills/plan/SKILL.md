@@ -13,6 +13,12 @@ Create a detailed implementation plan from the spec. The plan must be specific e
 
 **Save plans to:** `docs/plans/<feature-name>-plan.md`
 
+## When to Use This Skill
+
+This skill is **only invoked by the developer** via `/plan`. It is never triggered automatically by brainstorm or any other skill. Use it when:
+- A design doc exists and the implementation is complex enough to warrant a detailed plan
+- The developer wants a stronger model to review the design and produce an execution plan
+
 ## Philosophy
 
 The plan is a handoff document. It's written after brainstorming, then executed by any agent. The executing agent should be able to follow the plan without guessing about architecture, file locations, or implementation approach. Be specific and detailed.
@@ -62,8 +68,6 @@ Match plan weight to task weight. Defaulting to a full plan for every task is to
 - **Lightweight plan (3-10 lines)** — use when: Mode B, single file touched, one obvious task, no dependencies. Write one task with What + How + Verify. Skip Why when there's no ordering to justify.
 - **Standard plan** — most features in Mode A. Multiple tasks, each with What/Why/How/Verify.
 - **Phased plan** — cross-cutting work with real stage gates (see "When to Use Phases").
-
-Always write a plan file. Never skip this step — the execute skill requires one.
 
 ## Plan Document Structure
 
