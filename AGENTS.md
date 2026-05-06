@@ -28,8 +28,7 @@ Rules:
 
 ## Git Conventions
 
-Commits are feature-scoped and written by the developer. The agent does NOT author
-or suggest commit messages unless explicitly asked.
+Commits are feature-scoped.
 
 Format: `type(scope): description`
 
@@ -45,7 +44,6 @@ Common types:
 Rules:
 - **Never** append "Generated with Claude Code", "Co-authored by Claude", or any
   AI attribution footer to commit messages
-- **Never** suggest or auto-generate commit messages unless explicitly asked
 - One commit per logical feature or change — not per file, not per session, not per minor task
 - Description is lowercase, no trailing period
 - Keep the subject line under 72 characters
