@@ -48,6 +48,26 @@ Rules:
 - Description is lowercase, no trailing period
 - Keep the subject line under 72 characters
 
+### Versioning
+
+Track three independent things; do not conflate them.
+
+- **Commits (fine grain).** Conventional Commits (`type(scope): description`, above)
+  are the detailed version history. One per logical change.
+- **Milestone tags (coarse grain).** Tag meaningful milestones with annotated git
+  tags using `0.x` pre-release SemVer: each shipped phase/milestone is a minor bump
+  (`v0.1.0`, `v0.2.0`, …), fixes within a milestone are patch bumps, and `v1.0.0` is
+  the project's stated definition-of-done. Use `git tag -a vX.Y.Z -m "..."` so the
+  tag records what landed. Prefer this over maintaining a separate CHANGELOG for
+  solo projects. Tag only when the milestone's gate/exit criteria are actually green.
+- **Data/save-format version (if the project persists state).** A monotonic integer
+  inside the serialized format, independent of git tags and SemVer. Bump it only on a
+  breaking schema change, and ship a forward migration. It changes for different
+  reasons than releases, so never tie it to a git tag.
+
+When a project has phase/milestone structure, record the specific
+milestone→tag mapping in a project-local `docs/VERSIONING.md`, not here.
+
 ### Pre-Commit Gate
 
 Before any commit, the project must build and pass. Run in order:
