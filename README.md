@@ -68,7 +68,9 @@ Skills define *how the agent behaves* — behavioral context loaded when a task 
 
 Slash commands are saved prompt templates — shortcuts that trigger the corresponding skill.
 
-`/brainstorm` `/spec` `/plan` `/execute` `/sync-docs` `/sync-agents` `/gather-context` `/review` `/analyze-issue` `/writing-skills`
+`/brainstorm` `/spec` `/plan` `/execute` `/sync-docs` `/sync-agents` `/gather-context` `/code-review` `/analyze-issue` `/writing-skills`
+
+Not every skill has a command. **debugging**, **testing**, **find-skills**, **frontend-design**, and **agent-browser** are triggered by the task itself — you don't announce that you're debugging, you just describe the bug.
 
 ### Agents
 
@@ -84,32 +86,20 @@ Domain-specific rules loaded via `@rules/` in AGENTS.md:
 
 The foundational config — developer info, planning workflow, git conventions (conventional commits, no AI attribution, pre-commit gate), code style, and general rules. Shared across both tools.
 
+### RTK.md
+
+Usage notes for [rtk](https://github.com/reachingforthejack/rtk), a token-optimizing CLI proxy that filters command output. Machine-specific and entirely optional — if you don't have `rtk` installed, nothing here applies and the rest of the config works unchanged.
+
 ## Setup
+
+Clone anywhere — the installer resolves paths from its own location.
 
 ```bash
 git clone git@github.com:justincordova/agents.git ~/agent
-
-# Claude Code
-ln -s ~/agent/AGENTS.md ~/.claude/CLAUDE.md
-ln -s ~/agent/RTK.md ~/.claude/RTK.md
-ln -s ~/agent/agents ~/.claude/agents
-ln -s ~/agent/commands ~/.claude/commands
-ln -s ~/agent/rules ~/.claude/rules
-# Skills are linked per-skill (allows mixing agent skills with standalone ones)
-mkdir -p ~/.claude/skills
-for skill in ~/agent/skills/*/; do
-  ln -s "$skill" ~/.claude/skills/"$(basename "$skill")"
-done
-
-# OpenCode (reads AGENTS.md as its agent config)
-ln -s ~/agent/agents ~/.opencode/agents
-ln -s ~/agent/commands ~/.opencode/commands
-ln -s ~/agent/rules ~/.opencode/rules
-mkdir -p ~/.opencode/skills
-for skill in ~/agent/skills/*/; do
-  ln -s "$skill" ~/.opencode/skills/"$(basename "$skill")"
-done
+~/agent/install.sh
 ```
+
+This symlinks `AGENTS.md`, `agents/`, `commands/`, `rules/`, and each skill into both `~/.claude` and `~/.opencode`. Skills are linked one directory at a time so standalone skills can live alongside these. The script is idempotent — re-run it after pulling to pick up new skills.
 
 ## Why
 
