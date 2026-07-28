@@ -63,6 +63,7 @@ Skills define *how the agent behaves* — behavioral context loaded when a task 
 | **find-skills** | Discover and install community skills |
 | **frontend-design** | Production-grade frontend interfaces with distinctive, non-generic aesthetics |
 | **agent-browser** | Browser automation via CLI |
+| **obsidian** | Vault conventions — note naming, structure, linking, when to write one |
 
 ### Commands
 
@@ -70,12 +71,15 @@ Slash commands are saved prompt templates — shortcuts that trigger the corresp
 
 `/brainstorm` `/spec` `/plan` `/execute` `/sync-docs` `/sync-agents` `/gather-context` `/code-review` `/analyze-issue` `/writing-skills`
 
-Not every skill has a command. **debugging**, **testing**, **find-skills**, **frontend-design**, and **agent-browser** are triggered by the task itself — you don't announce that you're debugging, you just describe the bug.
+Not every skill has a command. **debugging**, **testing**, **find-skills**, **frontend-design**, **agent-browser**, and **obsidian** are triggered by the task itself — you don't announce that you're debugging, you just describe the bug.
 
 ### Rules
 
-Domain-specific rules loaded via `@rules/` in AGENTS.md:
+Rules are pulled into *every* project's context via `@rules/` in AGENTS.md, so this stays deliberately small:
+
 - **code-quality** — testing philosophy, review standards, error handling, logging
+
+Anything that only applies to certain work belongs in a skill, where it loads on demand. That's why note-taking conventions live in the **obsidian** skill rather than here — no reason to carry vault rules into a Rust build.
 - **obsidian** — vault conventions for note-taking
 
 ### AGENTS.md

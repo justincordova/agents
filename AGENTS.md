@@ -101,7 +101,6 @@ If anything fails, fix it. Do not commit broken code.
 
 ## Rules
 
-@rules/obsidian.md
 @rules/code-quality.md
 
 @RTK.md

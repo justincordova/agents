@@ -1,3 +1,8 @@
+---
+name: obsidian
+description: Use when creating, editing, or organizing notes in the Obsidian vault — daily notes, meeting notes, project notes, or links between them. Covers naming, structure, linking, and when a note is worth writing at all.
+---
+
 # Obsidian Notes
 
 ## Vault Location
