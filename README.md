@@ -1,6 +1,6 @@
 # agents
 
-A structured AI coding workflow — skills, agents, and commands that make AI think before it builds.
+A structured AI coding workflow — skills, commands, and rules that make AI think before it builds.
 
 Give an agent a prompt and hope for the best, or make it understand the problem before writing code, propose approaches before committing to one, and execute in reviewable chunks. This is the second one.
 
@@ -38,7 +38,7 @@ Issue-driven work:
 
 **Execute** groups tasks into batches by logical cohesion — related tasks stay together regardless of count, unrelated tasks get separate batches. The agent stops and reports between batches. You give feedback. It continues. No 50-step fire-and-forget.
 
-**Code review** uses a dedicated subagent that reads every file completely, mentally simulates execution under adverse conditions, traces data flow for security issues, and reports findings ranked by severity. No edits — report only.
+**Code review** reads every file completely, mentally simulates execution under adverse conditions, traces data flow for security issues, and reports findings ranked by severity. No edits — report only.
 
 ## What's in here
 
@@ -72,10 +72,6 @@ Slash commands are saved prompt templates — shortcuts that trigger the corresp
 
 Not every skill has a command. **debugging**, **testing**, **find-skills**, **frontend-design**, and **agent-browser** are triggered by the task itself — you don't announce that you're debugging, you just describe the bug.
 
-### Agents
-
-One subagent — **code-reviewer** — that can be dispatched for parallel code review. Merged security analysis into it since it's the same skillset.
-
 ### Rules
 
 Domain-specific rules loaded via `@rules/` in AGENTS.md:
@@ -99,7 +95,7 @@ git clone git@github.com:justincordova/agents.git ~/agent
 ~/agent/install.sh
 ```
 
-This symlinks `AGENTS.md`, `agents/`, `commands/`, `rules/`, and each skill into both `~/.claude` and `~/.opencode`. Skills are linked one directory at a time so standalone skills can live alongside these. The script is idempotent — re-run it after pulling to pick up new skills.
+This symlinks `AGENTS.md`, `commands/`, `rules/`, and each skill into both `~/.claude` and `~/.opencode`. Skills are linked one directory at a time so standalone skills can live alongside these. The script is idempotent — re-run it after pulling to pick up new skills.
 
 ## Validation
 

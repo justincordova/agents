@@ -27,7 +27,6 @@ link_skills() {
 echo "Claude Code (~/.claude):"
 link "$REPO/AGENTS.md" "$HOME/.claude/CLAUDE.md"
 link "$REPO/RTK.md"    "$HOME/.claude/RTK.md"
-link "$REPO/agents"    "$HOME/.claude/agents"
 link "$REPO/commands"  "$HOME/.claude/commands"
 link "$REPO/rules"     "$HOME/.claude/rules"
 link_skills "$HOME/.claude/skills"
@@ -38,7 +37,6 @@ command -v rtk >/dev/null 2>&1 || \
 echo
 echo "OpenCode (~/.opencode):"
 link "$REPO/AGENTS.md" "$HOME/.opencode/AGENTS.md"
-link "$REPO/agents"    "$HOME/.opencode/agents"
 link "$REPO/commands"  "$HOME/.opencode/commands"
 link "$REPO/rules"     "$HOME/.opencode/rules"
 link_skills "$HOME/.opencode/skills"

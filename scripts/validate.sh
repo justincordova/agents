@@ -54,20 +54,6 @@ for dir in skills/*/; do
   fi
 done
 
-echo "agents/"
-for file in agents/*.md; do
-  name="$(basename "$file" .md)"
-  fm_name="$(frontmatter "$file" name)"
-
-  [ -n "$(frontmatter "$file" description)" ] || fail "$file: missing 'description'"
-
-  if [ -z "$fm_name" ]; then
-    fail "$file: missing 'name' in frontmatter"
-  elif [ "$fm_name" != "$name" ]; then
-    fail "$file: name '$fm_name' does not match filename '$name'"
-  fi
-done
-
 echo "commands/"
 for file in commands/*.md; do
   [ -n "$(frontmatter "$file" description)" ] || fail "$file: missing 'description'"
