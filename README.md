@@ -101,6 +101,14 @@ git clone git@github.com:justincordova/agents.git ~/agent
 
 This symlinks `AGENTS.md`, `agents/`, `commands/`, `rules/`, and each skill into both `~/.claude` and `~/.opencode`. Skills are linked one directory at a time so standalone skills can live alongside these. The script is idempotent — re-run it after pulling to pick up new skills.
 
+## Validation
+
+```bash
+./scripts/validate.sh
+```
+
+This repo is markdown held together by convention, and the tools silently ignore anything they can't parse — a typo'd skill name just means the skill never loads. `validate.sh` checks the contracts: skill `name:` matches its directory, every command points at a skill that exists, frontmatter is present, and the README describes what's actually on disk. It runs in CI on every push and PR.
+
 ## Why
 
 Most AI coding configs are an AGENTS.md with some rules and a prayer. This is a workflow — brainstorm before building, execute in batches, review at every checkpoint, and never let the agent run unsupervised.
