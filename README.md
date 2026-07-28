@@ -24,21 +24,17 @@ Issue-driven work:
   /analyze-issue → plan → execute
 ```
 
-**Brainstorm is optional.** Use it when there are real design decisions to make. Skip it for mechanical changes.
+The rules that govern this — when to brainstorm, when a plan is warranted, who is allowed to write to SPEC.md — live in [AGENTS.md](AGENTS.md). That is the canonical copy and the agent reads it directly, so it isn't restated here.
 
-**Design docs** (`docs/designs/<feature>.md`) are the session-boundary artifact for new features. Write one during brainstorm, pick up from it in a fresh session. Design docs persist until sync-docs merges them into SPEC.md.
+What's worth explaining is why the shape is what it is.
 
-**Plans are always opt-in.** After brainstorm produces a design doc, the developer decides whether to write a plan. Simple implementations go straight to execute. Small iterations skip plans entirely. Only invoke `/plan` when the design is complex enough to warrant one — typically with a stronger model.
+**Brainstorm is optional, but it's a hard gate when it runs.** Mechanical work skips it entirely. When there are real design decisions, the agent explores the problem, asks clarifying questions one at a time, proposes 2-3 approaches with trade-offs, and gets the design approved before any code is written.
 
-**SPEC.md** is only updated when the user decides to reconcile — via sync-docs (which merges implemented design docs) or via direct spec skill invocation. Never automatically.
+**Design docs are the session boundary.** A doc in `docs/designs/` is what lets you end a session after brainstorming and resume cleanly in a new one — the context that mattered is on disk instead of buried in a transcript.
 
-**Sync-docs** is on-demand. Run it when docs feel stale after iterating. It merges design docs into SPEC.md, catches drift, and reconciles all project documentation in one pass.
+**Execute groups tasks into batches by logical cohesion** — related tasks stay together regardless of count, unrelated tasks get separate batches. The agent stops and reports between batches. You give feedback. It continues. No 50-step fire-and-forget.
 
-**Brainstorm** is the non-negotiable step. The agent explores the problem, asks clarifying questions one at a time, proposes 2-3 approaches with trade-offs, and presents a design for approval. No code gets written until the user approves.
-
-**Execute** groups tasks into batches by logical cohesion — related tasks stay together regardless of count, unrelated tasks get separate batches. The agent stops and reports between batches. You give feedback. It continues. No 50-step fire-and-forget.
-
-**Code review** reads every file completely, mentally simulates execution under adverse conditions, traces data flow for security issues, and reports findings ranked by severity. No edits — report only.
+**Code review reads every file completely,** mentally simulates execution under adverse conditions, traces data flow for security issues, and reports findings ranked by severity. No edits — report only.
 
 ## What's in here
 
