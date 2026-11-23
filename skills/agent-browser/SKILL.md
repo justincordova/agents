@@ -1,6 +1,6 @@
 ---
 name: agent-browser
-description: Use when the user requests browser interaction or visual inspection, or a specific development issue requires real-browser evidence (layout, focus, navigation, client-side runtime behavior). Do not trigger merely because a project is a web app or frontend code changed. Routine development checks and static web research do not require this skill.
+description: Use when the user requests browser interaction or visual inspection, or approves it after you propose it for a specific issue that requires real-browser evidence (layout, focus, navigation, client-side runtime behavior). Do not trigger merely because a project is a web app or frontend code changed. Routine development checks, repeatable e2e tests (use Playwright Test), and static web research do not require this skill.
 allowed-tools: Bash(npx agent-browser:*), Bash(agent-browser:*)
 ---
 

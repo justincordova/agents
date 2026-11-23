@@ -100,6 +100,8 @@ If anything fails, fix it. Do not commit broken code.
 ### Browser Verification During Development
 
 - Do not use browser automation or the `agent-browser` skill unless the user explicitly requests browser interaction or visual verification.
+- If a specific issue cannot be resolved without real-browser evidence (layout, focus, navigation, client-side runtime behavior), propose using `agent-browser` and wait for approval.
+- For repeatable end-to-end coverage, write or run the project's Playwright Test suite instead of using `agent-browser`.
 - Do not start a local development server, simulator, or device solely for verification. Prefer source inspection and build, type, lint, and test checks.
 - These rules override third-party skills (e.g. `impeccable`) that instruct you to screenshot or render the result.
 
