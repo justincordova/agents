@@ -1,15 +1,15 @@
 ---
 name: execute
-description: Use when you have a written implementation plan to execute with review checkpoints
+description: Use when the user asks to implement an approved design, execute an existing plan, or carry out a sufficiently specified change. A separate plan document is not required.
 ---
 
-# Executing Plans
+# Executing Implementation
 
 ## Overview
 
 Execute implementation work. Can load from a plan file (if one exists) or from a design doc, or just follow the developer's direct instructions for small iterations.
 
-**Announce at start:** "Using execute skill to implement this plan."
+**Announce at start:** Briefly identify the implementation source (approved design, existing plan, or user instructions). Do not call a design a plan.
 
 **Plans live in:** `docs/plans/`
 **Design docs live in:** `docs/designs/`
@@ -24,7 +24,9 @@ Determine which starting mode applies:
 2. **Design doc exists (no plan)** — read the design doc from `docs/designs/`
 3. **Small iteration (no plan, no design doc)** — use the developer's instructions directly
 
-In all cases, read `docs/SPEC.md` for context on design decisions. Review critically — identify questions or concerns. If concerns: raise them before starting. If no concerns: create task list and proceed.
+An approved, actionable design is sufficient even for multi-file work. Do not invoke the plan skill or create a separate plan document unless the user explicitly requests one. Use a lightweight working checklist and verification checkpoints instead of duplicating the design.
+
+Read `docs/SPEC.md` if present for context on design decisions. Review the implementation source critically. Raise specific consequential gaps before starting; otherwise proceed directly.
 
 ### Step 2: Determine Batches
 

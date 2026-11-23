@@ -1,6 +1,6 @@
 ---
 name: plan
-description: Use when you have a spec and need to create a detailed implementation plan before touching code
+description: Use only when the user explicitly requests an implementation plan or invokes /plan. Do not trigger merely because a design or spec exists or implementation is about to start.
 ---
 
 # Writing Plans
@@ -15,9 +15,11 @@ Create a detailed implementation plan from the spec. The plan must be specific e
 
 ## When to Use This Skill
 
-This skill is **only invoked by the developer** via `/plan`. It is never triggered automatically by brainstorm or any other skill. Use it when:
-- A design doc exists and the implementation is complex enough to warrant a detailed plan
-- The developer wants a stronger model to review the design and produce an execution plan
+This skill is opt-in: use it only when the user explicitly requests an implementation plan or invokes `/plan`. A request to implement an approved design is not a request to plan.
+
+- Do not invoke it automatically after design approval, from another skill, or just because work spans multiple files.
+- If the approved design already specifies the approach, boundaries, and verification, execute it directly with the execute skill. Do not duplicate it in `docs/plans/`.
+- If execution reveals a consequential gap, ask the specific unresolved question. Do not turn that gap into an unsolicited planning document.
 
 ## Philosophy
 
@@ -29,7 +31,7 @@ The plan skill handles three starting situations. Detect which applies, then fol
 
 ### Mode A: Design doc exists (post-brainstorm)
 
-Used when brainstorm ran and produced a design doc. The standard path for new features.
+Used only after an explicit planning request when a design doc exists. Design approval alone does not trigger this mode.
 
 1. **`docs/designs/<feature-name>.md`** — the approved design. Primary input.
 2. **`docs/SPEC.md`** — for patterns, conventions, constraints.
