@@ -18,7 +18,7 @@ Tests are optional when:
 
 - Test behavior, not implementation. Name tests after what they verify.
 - One assertion per concept. Group related assertions in one test.
-- Don't mock what you don't own. Prefer real dependencies or fakes over mocks.
+- Prefer real dependencies or fakes over mocks. Wrap external services behind your own interface and fake that; don't mock third-party library internals.
 - Integration tests > unit tests for most application code.
 - Unit tests for pure logic, utilities, and edge cases.
 

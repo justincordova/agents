@@ -96,9 +96,9 @@ Most bugs happen at integration boundaries, not inside pure functions.
 
 ## Mocking Guidelines
 
-- Don't mock what you don't own. Use real dependencies or fakes.
+- Use real dependencies when they're fast and deterministic (in-process code, a local test database).
+- For external services (APIs, queues), wrap them behind your own interface and fake that interface in tests. Don't mock third-party library internals — the mock encodes your guess about code you don't own.
 - Prefer fakes (in-memory implementations) over mocks when possible.
-- Mock external services (APIs, queues) — you don't control them.
 - If you're mocking more than 2-3 things in one test, test at a different level.
 
 ## Coverage Philosophy
