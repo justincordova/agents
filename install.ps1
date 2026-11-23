@@ -46,10 +46,31 @@ if (-not (Get-Command rtk -ErrorAction SilentlyContinue)) {
   Write-Host '  note: rtk is not installed - RTK.md''s guidance will not apply' -ForegroundColor Yellow
 }
 
-Write-Host "`nOpenCode (~/.opencode):" -ForegroundColor Cyan
-Link (Join-Path $Repo 'AGENTS.md') (Join-Path $HOME '.opencode\AGENTS.md')
-Link (Join-Path $Repo 'commands')  (Join-Path $HOME '.opencode\commands')
-Link (Join-Path $Repo 'rules')     (Join-Path $HOME '.opencode\rules')
-LinkSkills (Join-Path $HOME '.opencode\skills')
+$OpenCode = Join-Path $HOME '.config\opencode'
+Write-Host "`nOpenCode (~/.config/opencode):" -ForegroundColor Cyan
+Link (Join-Path $Repo 'AGENTS.md') (Join-Path $OpenCode 'AGENTS.md')
+Link (Join-Path $Repo 'RTK.md')    (Join-Path $OpenCode 'RTK.md')
+Link (Join-Path $Repo 'commands')  (Join-Path $OpenCode 'commands')
+Link (Join-Path $Repo 'rules')     (Join-Path $OpenCode 'rules')
+LinkSkills (Join-Path $OpenCode 'skills')
+
+# OpenCode does not expand AGENTS.md's @-imports; it loads extra files from the
+# "instructions" array in opencode.json instead.
+$OpenCodeJson = Join-Path $OpenCode 'opencode.json'
+if (-not ((Test-Path $OpenCodeJson) -and (Select-String -Quiet -Path $OpenCodeJson -Pattern '"instructions"'))) {
+  Write-Host "  note: add to $OpenCodeJson so rules/ and RTK.md load:" -ForegroundColor Yellow
+  Write-Host '    "instructions": ["~/.config/opencode/rules/*.md", "~/.config/opencode/RTK.md"]' -ForegroundColor Yellow
+}
+
+# Earlier versions linked into ~/.opencode, which OpenCode does not read.
+$Stale = @('AGENTS.md', 'commands', 'rules') | ForEach-Object { Join-Path $HOME ".opencode\$_" }
+$Stale += Get-ChildItem -Force (Join-Path $HOME '.opencode\skills') -ErrorAction SilentlyContinue | ForEach-Object FullName
+foreach ($old in $Stale) {
+  $item = Get-Item -LiteralPath $old -Force -ErrorAction SilentlyContinue
+  if ($item -and $item.LinkType -eq 'SymbolicLink' -and $item.Target -like "$Repo*") {
+    Remove-Item -LiteralPath $old -Force
+    Write-Host "  removed stale $old" -ForegroundColor DarkGray
+  }
+}
 
 Write-Host "`nDone." -ForegroundColor Green

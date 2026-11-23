@@ -35,11 +35,27 @@ command -v rtk >/dev/null 2>&1 || \
   echo "  note: rtk is not installed — RTK.md's guidance will not apply"
 
 echo
-echo "OpenCode (~/.opencode):"
-link "$REPO/AGENTS.md" "$HOME/.opencode/AGENTS.md"
-link "$REPO/commands"  "$HOME/.opencode/commands"
-link "$REPO/rules"     "$HOME/.opencode/rules"
-link_skills "$HOME/.opencode/skills"
+echo "OpenCode (~/.config/opencode):"
+OPENCODE="${XDG_CONFIG_HOME:-$HOME/.config}/opencode"
+link "$REPO/AGENTS.md" "$OPENCODE/AGENTS.md"
+link "$REPO/RTK.md"    "$OPENCODE/RTK.md"
+link "$REPO/commands"  "$OPENCODE/commands"
+link "$REPO/rules"     "$OPENCODE/rules"
+link_skills "$OPENCODE/skills"
+
+# OpenCode does not expand AGENTS.md's @-imports; it loads extra files from the
+# "instructions" array in opencode.json instead.
+grep -q '"instructions"' "$OPENCODE/opencode.json" 2>/dev/null || \
+  echo "  note: add to $OPENCODE/opencode.json so rules/ and RTK.md load:" \
+       '"instructions": ["~/.config/opencode/rules/*.md", "~/.config/opencode/RTK.md"]'
+
+# Earlier versions linked into ~/.opencode, which OpenCode does not read.
+for old in "$HOME/.opencode/AGENTS.md" "$HOME/.opencode/commands" "$HOME/.opencode/rules" "$HOME"/.opencode/skills/*; do
+  if [ -L "$old" ] && [[ "$(readlink "$old")" == "$REPO"/* ]]; then
+    rm "$old"
+    echo "  removed stale $old"
+  fi
+done
 
 echo
 echo "Done."
