@@ -7,14 +7,23 @@ description: Use when creating, editing, or organizing notes in the Obsidian vau
 
 ## Vault Location
 
-All notes live in the Obsidian vault. Don't create notes outside it unless explicitly asked.
+The vault is `~/Library/Mobile Documents/iCloud~md~obsidian/Documents/obi/` (iCloud, macOS only). Don't create notes outside it unless explicitly asked. On other machines there is no vault — say so instead of creating one.
+
+It's organized PARA-style — put each note in the matching folder:
+
+- `projects/<project>/` — active projects with a goal and an end
+- `areas/` — ongoing responsibilities
+- `resources/` — reference material and things learned
+- `archive/` — finished or inactive notes
+- `daily/` — daily notes; `meetings/` — meeting notes
+- `templates/` — note templates; use the matching one when it exists
 
 ## Naming Conventions
 
-- Use lowercase with hyphens: `project-planning.md`, not `Project Planning.md`
-- Be descriptive: `api-rate-limiting-design.md`, not `notes.md`
-- Date-prefix daily/weekly notes: `2026-04-17.md`
-- Date-prefix meeting notes: `2026-04-17-design-review.md`
+- Match the existing names in the folder you're writing to. Current convention is readable titles with spaces: `API Rate Limiting Design.md`
+- Be descriptive: `API Rate Limiting Design.md`, not `notes.md`
+- Date-prefix daily notes: `2026-04-17.md`
+- Date-prefix meeting notes: `2026-04-17 Design Review.md`
 
 ## Structure
 
