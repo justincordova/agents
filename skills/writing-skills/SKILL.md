@@ -75,10 +75,10 @@ The `description` field is the most important part of your skill. It's what sess
 - Start with "Use when..." 
 - Include specific triggers, symptoms, situations
 - Write in third person
-- Keep under 500 characters
-- NEVER summarize the skill's workflow or process
+- Keep under 500 characters (hard limits: 1,024 in the Agent Skills spec; Claude Code truncates `description` + `when_to_use` at 1,536 in its listing)
+- Say what the skill covers and when to use it, but don't spell out its step-by-step process
 
-**Why no workflow in description:** Testing showed that when descriptions summarize the workflow, sessions follow the description instead of reading the full skill. The description becomes a shortcut that skips the actual instructions.
+**Why no step-by-step in description:** Testing showed that when descriptions summarize the workflow, sessions follow the description instead of reading the full skill. The description becomes a shortcut that skips the actual instructions. Naming the output ("produces a design doc") is fine; listing the steps that get there is not.
 
 ```yaml
 # BAD: Summarizes workflow
@@ -96,10 +96,23 @@ description: Use when tests have race conditions, timing dependencies, or pass/f
 
 ## Naming Conventions
 
-- Gerund form preferred: `writing-skills`, `executing-plans`
-- Describe what you DO: `condition-based-waiting` not `async-helpers`
-- Letters, numbers, hyphens only
-- No parentheses or special characters
+- `name` must equal the directory name. OpenCode derives the skill ID from the path (`name` is only a display label), Claude Code uses it as the `/command`, and `validate.sh` enforces the match.
+- Lowercase kebab-case, 1–64 characters: `^[a-z0-9]+(-[a-z0-9]+)*$`
+- Short and action-oriented: `plan`, `code-review`, `condition-based-waiting` — not `async-helpers`
+- Pick a unique name: a skill named like a built-in (`plan`, `code-review`) replaces that built-in in Claude Code
+
+## Frontmatter
+
+Unknown fields are ignored by both tools, so tool-specific fields are safe to include.
+
+| Field | Claude Code | OpenCode | Use |
+|---|---|---|---|
+| `name` | ✓ | display label | Required here; must match the directory |
+| `description` | ✓ | ✓ | Required — without it OpenCode doesn't advertise the skill |
+| `disable-model-invocation: true` | ✓ | ✓ | User-invoked only (e.g. `/sync-docs`); the model won't auto-load it |
+| `when_to_use` | ✓ | — | Extra trigger text, counted with `description` |
+| `allowed-tools` | ✓ | — | Pre-approved tools while the skill is active |
+| `argument-hint` | ✓ | — | Hint shown after `/name` |
 
 ## Content Guidelines
 
@@ -138,9 +151,32 @@ All reference files should link directly from SKILL.md. Keep references one leve
 
 Include a table of contents at the top so partial reads still reveal the full scope.
 
+### Match the Form to the Failure
+
+Before writing guidance, name the failure you're fixing. The form that fixes one failure type backfires on another.
+
+| Failure | Right form | Wrong form |
+|---|---|---|
+| Knows the rule, breaks it under pressure | Prohibition + the rationalizations to reject | Soft guidance ("prefer…", "consider…") |
+| Complies, but the output has the wrong shape | Positive recipe: state what the output IS — its parts, in order | Prohibition list ("don't restate", "never narrate") |
+| Omits a required element | A required slot in the template they fill in | Prose reminders near the template |
+| Behavior should depend on a condition | Conditional on something observable ("if a design doc exists, read it") | Unconditional rule + exemption clauses |
+
+Whichever form you pick, avoid nuance clauses: "Don't X unless it matters" reopens the negotiation. Express a real exception as its own conditional. Exemption clauses ("this limit doesn't apply to code blocks") don't scope reliably — restructure so the rule can't reach the exempt part.
+
+Adapted from [obra/superpowers](https://github.com/obra/superpowers/tree/main/skills/writing-skills).
+
 ## Testing Skills
 
 Before deploying a skill, verify it works:
+
+### Micro-Test the Wording
+
+For guidance meant to change behavior, test the wording before running full scenarios:
+
+1. Run a fresh-context sample with the realistic surrounding context (the full skill, not the line in isolation) and a task that tempts the failure.
+2. Always run a no-guidance control. If the control doesn't show the failure, there's nothing to fix — don't write the guidance.
+3. Run 5+ reps per variant and read every result yourself. When wording lands, reps converge on the same shape; five different interpretations means it isn't binding yet.
 
 ### Quick Test
 1. Start a fresh session with the skill loaded
@@ -203,12 +239,23 @@ Provide output templates. Match strictness to need — exact format for APIs, fl
 | Inconsistent terminology | Confusing |
 | Deep reference chains | Partial reads miss information |
 
+## In This Repo
+
+Skills live in `~/agent` (this config repo) and are symlinked into both tools:
+
+1. Create `skills/<name>/SKILL.md`, with `name:` equal to `<name>`.
+2. Add a `| **<name>** | … |` row to the Skills table in `README.md` — CI fails without it.
+3. Optional: add `commands/<name>.md` ("Load the <name> skill…") for an OpenCode slash command. Claude Code already exposes every skill as `/<name>`.
+4. Run `./scripts/validate.sh`, then `./install.sh` to link the new skill.
+5. Third-party skills are vendored, not hand-written: add them to `scripts/update-vendored-skills.sh` and `THIRD_PARTY.md`, and don't edit the copies.
+
 ## Checklist
 
 Before deploying:
 - [ ] Description starts with "Use when..." with specific triggers
-- [ ] Description in third person, no workflow summary
-- [ ] Name uses gerund form, hyphens only
+- [ ] Description in third person, no step-by-step summary
+- [ ] Name matches the directory, lowercase kebab-case
+- [ ] Guidance form matches the failure type
 - [ ] Overview is 1-2 sentences with core principle
 - [ ] One excellent example (not multi-language)
 - [ ] Common mistakes section
