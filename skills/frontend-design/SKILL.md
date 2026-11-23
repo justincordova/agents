@@ -17,6 +17,31 @@ This skill has two modes. Detect which to use based on the user's input:
 
 Default to autopilot. Only enter collaborative mode when the user signals they want input on the design direction.
 
+## Companion Skills
+
+This skill is the entry point for frontend work and owns building new UI. When a task, or a step within it, narrows to one of the specialties below, read that skill's `SKILL.md` (a sibling directory, e.g. `../animate/SKILL.md`) and follow it for that part. Load only what the task needs — not every companion on every build.
+
+| Situation | Skill |
+|---|---|
+| Critique or score an existing design; technical audit (a11y, performance, responsive); final polish pass | `impeccable` — `critique`, `audit`, `polish` |
+| Steer an existing design: bolder, quieter, distill, colorize, typeset, layout, delight | `impeccable` — the matching command |
+| Production hardening (errors, i18n, overflow), first-run flows and empty states, UX copy | `impeccable` — `harden`, `onboard`, `clarify` |
+| Capture product context or the visual system (`PRODUCT.md`, `DESIGN.md`) | `impeccable` — `init`, `document` |
+| The task needs a component dependency (toast, dialog, drawer, command menu, drag and drop, charts) | `pick-ui-library` |
+| One web animation or transition | `animate` |
+| Several elements animating together (stagger, hero entrance, view swap) | `choreograph` |
+| Drag, swipe, sheets, snap points | `gestures` |
+| Interaction polish: press/hover states, popover origin, tooltip timing | `emil-design-eng` |
+| Spring physics, Apple-style motion and materials | `apple-design` |
+| A web app that must feel native on phones | `mobile-native` |
+| Stress-test a component with worst-case data | `break-ui` |
+| Animations that drop frames | `animation-performance` |
+| Review motion in a diff | `review-animations` |
+| App-wide motion: audit it, find missing motion, or remove excess | `improve-animations`, `find-animation-opportunities`, `remove-animations` |
+| The user wants several live variants to flip between | `prototype` |
+
+When guidance conflicts: the user's brief and the project's existing conventions win, then this skill for overall direction. For motion specifics (easing, duration, properties), Emil's skills override the general Motion notes below. Companion steps that ask for screenshots or rendered checks follow the browser verification rules in AGENTS.md.
+
 ## Checklist
 
 Create a task for each item and complete them in order:

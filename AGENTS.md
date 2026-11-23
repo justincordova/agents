@@ -101,6 +101,11 @@ If anything fails, fix it. Do not commit broken code.
 
 - Do not use browser automation or the `agent-browser` skill unless the user explicitly requests browser interaction or visual verification.
 - Do not start a local development server, simulator, or device solely for verification. Prefer source inspection and build, type, lint, and test checks.
+- These rules override third-party skills (e.g. `impeccable`) that instruct you to screenshot or render the result.
+
+### Frontend Work
+
+- Start frontend tasks with the `frontend-design` skill. It routes to `impeccable` and Emil Kowalski's skills (`animate`, `choreograph`, `gestures`, etc.) when a task narrows to their specialty. When the user names one of those skills directly, use it.
 
 ---
 
