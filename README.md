@@ -57,9 +57,34 @@ Skills define *how the agent behaves* — behavioral context loaded when a task 
 | **gather-context** | Quick codebase scan — structure, conventions, deps, patterns. Chat summary, no files. |
 | **writing-skills** | Create and edit skills for both tools |
 | **find-skills** | Discover and install community skills |
-| **frontend-design** | Production-grade frontend interfaces with distinctive, non-generic aesthetics |
+| **frontend-design** | Production-grade frontend interfaces with distinctive, non-generic aesthetics. Entry point for frontend work — routes to the third-party design skills below. |
 | **agent-browser** | Browser automation via CLI |
 | **obsidian** | Vault conventions — note naming, structure, linking, when to write one |
+
+#### Third-party design skills
+
+Vendored from upstream so they sync with everything else — sources, commits, and licenses in [THIRD_PARTY.md](THIRD_PARTY.md). Don't edit them in place; refresh with `./scripts/update-vendored-skills.sh`.
+
+| Skill | What it does |
+|---|---|
+| **impeccable** | [pbakaus/impeccable](https://github.com/pbakaus/impeccable) — design critique, audit, polish, and steering commands (`bolder`, `quieter`, `typeset`, …) plus an AI-slop detector |
+| **emil-design-eng** | [Emil Kowalski](https://github.com/emilkowalski/skills)'s design-engineering philosophy — interaction polish and invisible details |
+| **animate** | Build one web animation with the right curve, duration, and properties |
+| **choreograph** | Coordinate several elements animating together |
+| **gestures** | Drag, swipe, and sheet interactions that track the finger |
+| **apple-design** | Apple's interface and fluid-motion principles, translated for the web |
+| **animation-performance** | Fix animations that drop frames |
+| **animation-vocabulary** | Name a motion effect from a vague description |
+| **review-animations** | Strict review of motion code |
+| **improve-animations** | Audit a codebase's motion and write prioritized fix plans |
+| **find-animation-opportunities** | Find places that should animate (and reject those that shouldn't) |
+| **remove-animations** | Remove motion the interface doesn't need |
+| **mobile-native** | Make a web app feel native on a phone |
+| **break-ui** | Stress-test UI with worst-case data |
+| **pick-ui-library** | Pick a trusted library instead of hand-rolling components |
+| **prototype** | Build several variants behind a live picker |
+| **learn-taste** | Turn a session's design corrections into rules in `DESIGN.md` |
+| **ask-emil** | Router — which of Emil's skills fits the situation |
 
 ### Commands
 
@@ -67,7 +92,7 @@ Slash commands are saved prompt templates — shortcuts that trigger the corresp
 
 `/brainstorm` `/spec` `/plan` `/execute` `/sync-docs` `/sync-agents` `/gather-context` `/code-review` `/analyze-issue` `/writing-skills`
 
-Not every skill has a command. **debugging**, **testing**, **find-skills**, **frontend-design**, **agent-browser**, and **obsidian** are triggered by the task itself — you don't announce that you're debugging, you just describe the bug.
+Not every skill has a command. **debugging**, **testing**, **find-skills**, **frontend-design**, **agent-browser**, **obsidian**, and the third-party design skills are triggered by the task itself — you don't announce that you're debugging, you just describe the bug.
 
 ### Rules
 
