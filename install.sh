@@ -27,9 +27,15 @@ link_skills() {
 echo "Claude Code (~/.claude):"
 link "$REPO/AGENTS.md" "$HOME/.claude/CLAUDE.md"
 link "$REPO/RTK.md"    "$HOME/.claude/RTK.md"
-link "$REPO/commands"  "$HOME/.claude/commands"
 link "$REPO/rules"     "$HOME/.claude/rules"
 link_skills "$HOME/.claude/skills"
+
+# Claude Code exposes every skill as /<name>, and a same-named skill shadows a
+# command, so commands/ is only linked for OpenCode.
+if [ -L "$HOME/.claude/commands" ] && [ "$(readlink "$HOME/.claude/commands")" = "$REPO/commands" ]; then
+  rm "$HOME/.claude/commands"
+  echo "  removed $HOME/.claude/commands (skills already provide these)"
+fi
 
 command -v rtk >/dev/null 2>&1 || \
   echo "  note: rtk is not installed — RTK.md's guidance will not apply"

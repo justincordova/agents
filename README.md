@@ -88,7 +88,7 @@ Vendored from upstream so they sync with everything else — sources, commits, a
 
 ### Commands
 
-Slash commands are saved prompt templates — shortcuts that trigger the corresponding skill.
+Slash commands are saved prompt templates — shortcuts that trigger the corresponding skill. They're installed for OpenCode only; Claude Code already exposes every skill as `/<name>`.
 
 `/brainstorm` `/spec` `/plan` `/execute` `/sync-docs` `/sync-agents` `/gather-context` `/code-review` `/analyze-issue` `/writing-skills`
 
@@ -119,7 +119,7 @@ git clone git@github.com:justincordova/agents.git ~/agent
 ~/agent/install.sh
 ```
 
-This symlinks `AGENTS.md`, `RTK.md`, `commands/`, `rules/`, and each skill into both `~/.claude` and `~/.config/opencode`. Skills are linked one directory at a time so standalone skills can live alongside these. The script is idempotent — re-run it after pulling to pick up new skills.
+This symlinks `AGENTS.md`, `RTK.md`, `rules/`, and each skill into both `~/.claude` and `~/.config/opencode`, plus `commands/` into OpenCode. Skills are linked one directory at a time so standalone skills can live alongside these. The script is idempotent — re-run it after pulling to pick up new skills.
 
 OpenCode doesn't expand AGENTS.md's `@rules/…` and `@RTK.md` imports, so add them to your global `opencode.json` (the installer reminds you if they're missing):
 

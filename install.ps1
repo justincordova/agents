@@ -38,9 +38,16 @@ function LinkSkills {
 Write-Host 'Claude Code (~/.claude):' -ForegroundColor Cyan
 Link (Join-Path $Repo 'AGENTS.md') (Join-Path $HOME '.claude\CLAUDE.md')
 Link (Join-Path $Repo 'RTK.md')    (Join-Path $HOME '.claude\RTK.md')
-Link (Join-Path $Repo 'commands')  (Join-Path $HOME '.claude\commands')
 Link (Join-Path $Repo 'rules')     (Join-Path $HOME '.claude\rules')
 LinkSkills (Join-Path $HOME '.claude\skills')
+
+# Claude Code exposes every skill as /<name>, and a same-named skill shadows a
+# command, so commands/ is only linked for OpenCode.
+$ClaudeCommands = Get-Item -LiteralPath (Join-Path $HOME '.claude\commands') -Force -ErrorAction SilentlyContinue
+if ($ClaudeCommands -and $ClaudeCommands.LinkType -eq 'SymbolicLink' -and $ClaudeCommands.Target -like "$Repo*") {
+  Remove-Item -LiteralPath $ClaudeCommands.FullName -Force
+  Write-Host "  removed $($ClaudeCommands.FullName) (skills already provide these)" -ForegroundColor DarkGray
+}
 
 if (-not (Get-Command rtk -ErrorAction SilentlyContinue)) {
   Write-Host '  note: rtk is not installed - RTK.md''s guidance will not apply' -ForegroundColor Yellow
