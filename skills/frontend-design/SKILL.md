@@ -96,7 +96,7 @@ Wait for the user to pick a direction before continuing to implementation.
 
 ### 4. Implement
 
-Once the user approves a direction, write production-grade, working code. Not wireframes, not placeholders.
+Once the direction is set (chosen yourself in autopilot, approved by the user in collaborative), write production-grade, working code. Not wireframes, not placeholders.
 
 Adapt the following to the platform and framework in use:
 
@@ -128,7 +128,7 @@ Adapt the following to the platform and framework in use:
 
 After implementing, check:
 - **No runtime errors**: builds/runs without errors
-- **Responsive**: holds up at the smallest and largest target viewport sizes
+- **Responsive**: layout code handles the smallest and largest target viewport sizes (verify from source and build checks; if real-browser evidence is needed, propose agent-browser per AGENTS.md)
 - **Accessible**: sufficient contrast, semantic markup, alt text, focus/keyboard navigation
 - **No dead code**: remove unused imports, placeholder text, commented-out styles
 - **Consistent with project conventions**: matches the patterns found in step 1
@@ -152,7 +152,7 @@ Show the user what you built. If it's a single file, share it directly. If it's 
 ## Key Principles
 
 - **Context-first.** Read the existing codebase before making choices. Fit the project, don't fight it.
-- **Propose, don't assume.** Present options. The user picks the direction.
+- **Opinionated by default.** In autopilot, commit to a direction and explain it; offer options only in collaborative mode.
 - **Deliberate over safe.** A strong opinion that's wrong is easier to adjust than no opinion at all.
 - **Platform-aware.** Adapt the approach to the framework and platform, don't force web patterns onto native UI or vice versa.
 - **Details compound.** Typography, spacing, color, motion — none of them save a bad design alone, but neglecting any of them drags down a good one.

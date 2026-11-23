@@ -22,7 +22,7 @@ Create a task for each item and complete them in order. Run scans in parallel wh
 
 - Find the package manifest (`package.json`, `go.mod`, `Cargo.toml`, `pyproject.toml`, `.csproj`, `Directory.Build.props`, etc.)
 - Identify: name, language, framework, runtime version
-- Read `README.md` or `docs/SPEC.md` for the project description
+- Read `README.md` or `docs/SPEC.md` for the project description, plus any in-flight `docs/designs/*.md`
 
 ### 2. Structure
 

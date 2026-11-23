@@ -78,7 +78,7 @@ Explore context → Ask questions → Propose approaches → Present design → 
 
 ## After the Design (Normal Mode)
 
-Once the design is approved, write it to `docs/designs/<feature-name>.md`. This file is the session-boundary artifact — a new agent session can pick up the plan step from here without needing the brainstorming context.
+Once the design is approved, write it to `docs/designs/<feature-name>.md`. This file is the session-boundary artifact — a new agent session can pick up from here (execute, or `/plan` if requested) without needing the brainstorming context.
 
 **Design doc structure:**
 

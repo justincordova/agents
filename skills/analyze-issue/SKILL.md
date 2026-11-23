@@ -72,8 +72,8 @@ Write a structured spec to `docs/issues/<number>-<slug>.md`:
 ### Step 5: Transition
 
 Ask user what's next:
-1. **Write a plan** (writing-plans skill) — create step-by-step implementation instructions
-2. **Start building** — for straightforward issues
+1. **Start building** (execute skill, using this spec)
+2. **Write a plan** (`/plan`) — for complex issues, when step-by-step instructions are wanted first
 3. **Discuss** — if something is unclear or needs design decisions
 
 ## Key Principles

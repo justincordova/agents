@@ -18,10 +18,10 @@ Small iterations (bugfixes, tweaks, mechanical changes):
   (skip brainstorm) → execute
 
 Greenfield (no SPEC.md yet):
-  brainstorm → spec (interview mode) → plan → execute
+  brainstorm → spec (interview mode) → (plan only if requested) → execute
 
 Issue-driven work:
-  /analyze-issue → plan → execute
+  /analyze-issue → (plan only if requested) → execute
 ```
 
 The rules that govern this — when to brainstorm, when a plan is warranted, who is allowed to write to SPEC.md — live in [AGENTS.md](AGENTS.md). That is the canonical copy and the agent reads it directly, so it isn't restated here.
@@ -45,7 +45,7 @@ Skills define *how the agent behaves* — behavioral context loaded when a task 
 | Skill | What it does |
 |---|---|
 | **brainstorm** | Collaborative design through questions, approaches, and approval gates. Produces a design doc. |
-| **spec** | Owns `docs/SPEC.md`. Three modes: merge a design doc, direct edit, or initial spec interview. |
+| **spec** | Owns `docs/SPEC.md`. Two modes: direct edit or initial spec interview. Merging design docs is sync-docs' job. |
 | **plan** | Detailed implementation plans with three input modes: design doc, user instructions, or greenfield SPEC.md. |
 | **execute** | Smart batch execution grouped by logical cohesion |
 | **sync-docs** | On-demand reconciliation of docs with the codebase |
@@ -96,12 +96,11 @@ Not every skill has a command. **debugging**, **testing**, **find-skills**, **fr
 
 ### Rules
 
-Rules are pulled into *every* project's context via `@rules/` in AGENTS.md, so this stays deliberately small:
+Rules are pulled into *every* project's context — via `@rules/` in AGENTS.md for Claude Code, and the `instructions` array in `opencode.json` for OpenCode (which doesn't expand `@` imports) — so this stays deliberately small:
 
 - **code-quality** — testing philosophy, review standards, error handling, logging
 
 Anything that only applies to certain work belongs in a skill, where it loads on demand. That's why note-taking conventions live in the **obsidian** skill rather than here — no reason to carry vault rules into a Rust build.
-- **obsidian** — vault conventions for note-taking
 
 ### AGENTS.md
 
@@ -109,7 +108,7 @@ The foundational config — developer info, planning workflow, git conventions (
 
 ### RTK.md
 
-Usage notes for [rtk](https://github.com/reachingforthejack/rtk), a token-optimizing CLI proxy that filters command output. Machine-specific and entirely optional — if you don't have `rtk` installed, nothing here applies and the rest of the config works unchanged.
+Usage notes for [rtk](https://github.com/rtk-ai/rtk), a token-optimizing CLI proxy that filters command output. Taken from rtk's hook-mode awareness text (`hooks/rtk-awareness-high.md` upstream) — refresh it from there when rtk updates. Machine-specific and entirely optional — if you don't have `rtk` installed, nothing here applies and the rest of the config works unchanged.
 
 ## Setup
 
@@ -120,7 +119,13 @@ git clone git@github.com:justincordova/agents.git ~/agent
 ~/agent/install.sh
 ```
 
-This symlinks `AGENTS.md`, `commands/`, `rules/`, and each skill into both `~/.claude` and `~/.opencode`. Skills are linked one directory at a time so standalone skills can live alongside these. The script is idempotent — re-run it after pulling to pick up new skills.
+This symlinks `AGENTS.md`, `RTK.md`, `commands/`, `rules/`, and each skill into both `~/.claude` and `~/.config/opencode`. Skills are linked one directory at a time so standalone skills can live alongside these. The script is idempotent — re-run it after pulling to pick up new skills.
+
+OpenCode doesn't expand AGENTS.md's `@rules/…` and `@RTK.md` imports, so add them to your global `opencode.json` (the installer reminds you if they're missing):
+
+```json
+"instructions": ["~/.config/opencode/rules/*.md", "~/.config/opencode/RTK.md"]
+```
 
 ## Validation
 

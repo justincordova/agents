@@ -121,4 +121,4 @@ The spec should always reflect the CURRENT state of the project's design, not hi
 Once SPEC.md is updated:
 
 - **Mode 1 (direct edit):** "SPEC.md updated."
-- **Mode 2 (greenfield):** "Initial spec saved at `docs/SPEC.md`. Ready for `/plan` on the first feature."
+- **Mode 2 (greenfield):** "Initial spec saved at `docs/SPEC.md`."

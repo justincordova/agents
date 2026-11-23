@@ -56,13 +56,6 @@ Used when the spec skill just created an initial SPEC.md and you're planning the
 1. **`docs/SPEC.md`** — primary input, recently created by spec skill.
 2. **Relevant code** — usually minimal; this is a new project.
 
-## Which Mode Triggers the SPEC.md Merge?
-
-Only **Mode A** triggers a spec merge — it's the only mode with a design doc to merge.
-
-- Mode B: no design doc → no merge → skip straight to execute handoff.
-- Mode C: SPEC.md already up to date (spec skill just wrote it) → skip merge → straight to execute handoff.
-
 ## Plan Size: Scale to the Work
 
 Match plan weight to task weight. Defaulting to a full plan for every task is token waste.

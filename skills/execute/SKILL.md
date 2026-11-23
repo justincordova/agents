@@ -22,11 +22,12 @@ Determine which starting mode applies:
 
 1. **Plan file exists** — read the plan file from `docs/plans/`
 2. **Design doc exists (no plan)** — read the design doc from `docs/designs/`
-3. **Small iteration (no plan, no design doc)** — use the developer's instructions directly
+3. **Issue brief exists** — read the analyze-issue output from `docs/issues/`
+4. **Small iteration (none of the above)** — use the developer's instructions directly
 
 An approved, actionable design is sufficient even for multi-file work. Do not invoke the plan skill or create a separate plan document unless the user explicitly requests one. Use a lightweight working checklist and verification checkpoints instead of duplicating the design.
 
-Read `docs/SPEC.md` if present for context on design decisions. Review the implementation source critically. Raise specific consequential gaps before starting; otherwise proceed directly.
+Read `docs/SPEC.md` if present for context on design decisions, plus any in-flight `docs/designs/*.md` it may not reflect yet. Review the implementation source critically. Raise specific consequential gaps before starting; otherwise proceed directly.
 
 ### Step 2: Determine Batches
 
@@ -65,7 +66,7 @@ Present your batch grouping to the user before executing. Call out which checkpo
 
 For each task:
 1. Mark as in_progress
-2. Follow the steps described in the plan
+2. Follow the implementation source (plan, design doc, issue brief, or instructions)
 3. Run verifications as specified
 4. Mark as completed
 
@@ -103,9 +104,9 @@ After all tasks complete and verified:
 
 ## Key Principles
 
-- Review plan critically first
+- Review the implementation source critically first
 - Reference SPEC.md for design context
-- Follow plan steps — don't skip ahead
+- Follow the source's steps — don't skip ahead
 - Don't skip verifications
 - Batch by cohesion, not count
 - Between batches: report and wait for feedback

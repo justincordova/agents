@@ -13,7 +13,7 @@ brainstorm → design doc → (plan only if complex) → execute → (iterate) �
 (skip brainstorm) → execute
 
 **Greenfield (no SPEC.md yet):**
-brainstorm → spec (interview mode, writes initial SPEC.md) → plan → execute
+brainstorm → spec (interview mode, writes initial SPEC.md) → (plan only if requested) → execute
 
 Rules:
 - **Brainstorm is optional.** Use it when the work involves genuine design decisions, multiple viable approaches, or unclear scope. Skip it for mechanical changes where the design is obvious.
@@ -25,6 +25,7 @@ Rules:
 - **Plans are disposable.** Create, execute, done. For changes, write a new plan.
 - Plans live in `docs/plans/<feature-name>-plan.md`. Design docs live in `docs/designs/<feature-name>.md` and persist until sync-docs merges them into SPEC.md.
 - When reading SPEC.md, always check `docs/designs/` for in-flight features that SPEC.md may not reflect yet.
+- Issue briefs from analyze-issue live in `docs/issues/<number>-<slug>.md` and are a valid input to execute.
 
 ## Git Conventions
 

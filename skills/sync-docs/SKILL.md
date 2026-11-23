@@ -27,7 +27,7 @@ Reconcile documentation with the current state of the codebase. This skill is in
 **Do NOT run it:**
 - After every small commit (that's what batching avoids)
 - In the middle of active iteration (wait until the design settles)
-- When the plan skill has just finished — that flow already merges the design doc into SPEC.md
+- In the middle of executing a plan (wait until the feature ships)
 
 ## The Process
 
@@ -47,8 +47,7 @@ Scan the repo for documentation files and determine which ones are impacted. Com
 | `TESTING.md` | Test approach, frameworks, or commands changed |
 | `MANUAL_TESTING.md` | Manual test steps or flows changed |
 | `LOGGING.md` | Logging approach, format, or tooling changed |
-| `AGENTS.md` | Repo structure, commands, tech stack, or architectural patterns changed |
-| `AGENTS.md` | Project conventions, tooling, or workflow changed |
+| `AGENTS.md` | Repo structure, commands, tech stack, conventions, or workflow changed |
 | `README.md` | Anything a user cloning the repo would need to know |
 
 ### Step 3: Update Each Doc
@@ -77,13 +76,8 @@ For each affected doc, make targeted updates:
 - Update when: repo layout changed, commands changed, new dependencies added, architectural patterns shifted, new modules created, or gotchas discovered
 - Do NOT rewrite the whole file — update only the sections that drifted
 - Load the sync-agents skill's template if you need to add new sections that don't exist yet
-- Keep under 400 lines — cut aggressively, every line competes with agent context
-
-**AGENTS.md:**
-- ONLY update if project conventions, tooling, or workflow changed
-- Keep it concise — this file is loaded into memory
 - Add new rules or constraints, remove stale ones
-- Never pad or bloat — every line should earn its place
+- Keep it concise — this file is loaded into every session, so every line should earn its place
 - Do NOT use this to document features or behavior — that belongs in other docs
 
 **README.md:**
