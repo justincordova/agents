@@ -57,7 +57,7 @@ Skills define *how the agent behaves* — behavioral context loaded when a task 
 | **gather-context** | Quick codebase scan — structure, conventions, deps, patterns. Chat summary, no files. |
 | **writing-skills** | Create and edit skills for both tools |
 | **find-skills** | Discover and install community skills |
-| **frontend-design** | Production-grade frontend interfaces with distinctive, non-generic aesthetics. Entry point for frontend work — routes to the third-party design skills below. |
+| **frontend** | Production-grade frontend interfaces with distinctive, non-generic aesthetics. Entry point for frontend work — routes to the third-party design skills below. |
 | **agent-browser** | Browser automation via CLI |
 | **obsidian** | Vault conventions — note naming, structure, linking, when to write one |
 
@@ -92,7 +92,7 @@ Slash commands are saved prompt templates — shortcuts that trigger the corresp
 
 `/brainstorm` `/spec` `/plan` `/execute` `/sync-docs` `/sync-agents` `/gather-context` `/code-review` `/analyze-issue` `/writing-skills`
 
-Not every skill has a command. **debugging**, **testing**, **find-skills**, **frontend-design**, **agent-browser**, **obsidian**, and the third-party design skills are triggered by the task itself — you don't announce that you're debugging, you just describe the bug.
+Not every skill has a command. **debugging**, **testing**, **find-skills**, **frontend**, **agent-browser**, **obsidian**, and the third-party design skills are triggered by the task itself — you don't announce that you're debugging, you just describe the bug.
 
 ### Rules
 

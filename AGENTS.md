@@ -108,7 +108,7 @@ If anything fails, fix it. Do not commit broken code.
 
 ### Frontend Work
 
-- Start frontend tasks with the `frontend-design` skill. It routes to `impeccable` and Emil Kowalski's skills (`animate`, `choreograph`, `gestures`, etc.) when a task narrows to their specialty. When the user names one of those skills directly, use it.
+- Start frontend tasks with the `frontend` skill. It routes to `impeccable` and Emil Kowalski's skills (`animate`, `choreograph`, `gestures`, etc.) when a task narrows to their specialty. When the user names one of those skills directly, use it.
 
 ---
 

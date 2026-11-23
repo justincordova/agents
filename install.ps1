@@ -33,6 +33,14 @@ function LinkSkills {
   Get-ChildItem -Directory (Join-Path $Repo 'skills') | ForEach-Object {
     Link $_.FullName (Join-Path $DestDir $_.Name)
   }
+  # Drop links to skills that were renamed or removed from this repo.
+  $SkillsDir = Join-Path $Repo 'skills'
+  Get-ChildItem -Force $DestDir | Where-Object {
+    $_.LinkType -eq 'SymbolicLink' -and $_.Target -like "$SkillsDir*" -and -not (Test-Path -LiteralPath $_.Target)
+  } | ForEach-Object {
+    Remove-Item -LiteralPath $_.FullName -Force
+    Write-Host "  removed stale $($_.FullName)" -ForegroundColor DarkGray
+  }
 }
 
 Write-Host 'Claude Code (~/.claude):' -ForegroundColor Cyan

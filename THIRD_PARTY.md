@@ -1,6 +1,6 @@
 # Third-party skills
 
-These skills are vendored from upstream so they sync across machines with the rest of this repo. Don't edit them in place — `scripts/update-vendored-skills.sh` overwrites them. Put customizations in our own skills (routing lives in `skills/frontend-design`).
+These skills are vendored from upstream so they sync across machines with the rest of this repo. Don't edit them in place — `scripts/update-vendored-skills.sh` overwrites them. Put customizations in our own skills (routing lives in `skills/frontend`).
 
 | Source | Commit | License | Skills |
 |---|---|---|---|

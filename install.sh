@@ -22,6 +22,13 @@ link_skills() {
   for skill in "$REPO"/skills/*/; do
     link "${skill%/}" "$dest_dir/$(basename "$skill")"
   done
+  # Drop links to skills that were renamed or removed from this repo.
+  for existing in "$dest_dir"/*; do
+    if [ -L "$existing" ] && [ ! -e "$existing" ] && [[ "$(readlink "$existing")" == "$REPO"/skills/* ]]; then
+      rm "$existing"
+      echo "  removed stale $existing"
+    fi
+  done
 }
 
 echo "Claude Code (~/.claude):"

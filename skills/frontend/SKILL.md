@@ -1,5 +1,5 @@
 ---
-name: frontend-design
+name: frontend
 description: Use when building new UI or reshaping an existing interface's visual design — pages, components, apps, on web, mobile, or desktop. Entry point for frontend work. Sets aesthetic direction, typography, color, layout, and copy so the result doesn't read as a templated default, and routes to impeccable and Emil Kowalski's skills for critique, polish, and motion.
 ---
 

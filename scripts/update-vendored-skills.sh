@@ -2,7 +2,7 @@
 #
 # Refresh the third-party skills vendored into skills/ from their upstream repos.
 # Overwrites the vendored copies wholesale — local edits to them are lost, so
-# customize behavior in our own skills (e.g. frontend-design) instead.
+# customize behavior in our own skills (e.g. frontend) instead.
 # Review the diff and update THIRD_PARTY.md before committing.
 #
 set -euo pipefail
