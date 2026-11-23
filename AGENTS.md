@@ -97,6 +97,11 @@ If anything fails, fix it. Do not commit broken code.
 - If context is getting large, say so — don't silently degrade.
 - Treat every task as if a senior engineer will review it tomorrow.
 
+### Browser Verification During Development
+
+- Do not use browser automation or the `agent-browser` skill unless the user explicitly requests browser interaction or visual verification.
+- Do not start a local development server, simulator, or device solely for verification. Prefer source inspection and build, type, lint, and test checks.
+
 ---
 
 ## Rules

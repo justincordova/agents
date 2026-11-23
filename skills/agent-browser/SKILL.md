@@ -1,6 +1,6 @@
 ---
 name: agent-browser
-description: Browser automation CLI for AI agents. Use when the user needs to interact with websites, including navigating pages, filling forms, clicking buttons, taking screenshots, extracting data, testing web apps, or automating any browser task. Triggers include requests to "open a website", "fill out a form", "click a button", "take a screenshot", "scrape data from a page", "test this web app", "login to a site", "automate browser actions", or any task requiring programmatic web interaction.
+description: Use when the user requests browser interaction or visual inspection, or a specific development issue requires real-browser evidence (layout, focus, navigation, client-side runtime behavior). Do not trigger merely because a project is a web app or frontend code changed. Routine development checks and static web research do not require this skill.
 allowed-tools: Bash(npx agent-browser:*), Bash(agent-browser:*)
 ---
 
@@ -8,14 +8,35 @@ allowed-tools: Bash(npx agent-browser:*), Bash(agent-browser:*)
 
 The CLI uses Chrome/Chromium via CDP directly. Install via `npm i -g agent-browser`, `brew install agent-browser`, or `cargo install agent-browser`. Run `agent-browser install` to download Chrome.
 
-## Core Workflow
+## When to Use During Development
 
-Every browser automation follows this pattern:
+Browser use must answer a specific question that source inspection, existing tests, or command-line checks cannot adequately answer. Before opening a browser, briefly state that question and the observable pass condition.
+
+Use it for:
+- User-requested browser walkthroughs, screenshots, or visual checks.
+- Substantial new UI or layout changes whose acceptance depends on rendered appearance; inspect the affected view once after implementation.
+- Reproducing or verifying browser-specific bugs: responsive overflow, focus/keyboard behavior, client-side navigation, or runtime failures not covered by existing tests.
+- A targeted end-to-end interaction when existing automated coverage cannot establish the relevant outcome.
+- Website tasks that require live interaction, such as filling forms or accessing dynamic content unavailable through page fetching.
+
+Do not use it automatically for copy edits, small styling tweaks with clear behavior, refactors, backend/API work, configuration, or every frontend change. Prefer source inspection, build/type/lint checks, and relevant existing tests. Prefer search or page-fetching tools for static web research.
+
+### Scope and Stopping Rule
+
+- Check only the affected flow, view, and relevant viewport(s). Do not tour unrelated pages or test a device matrix without a requirement or concrete concern.
+- Prefer text/DOM snapshots or targeted assertions for behavior. A snapshot is a textual element tree, not an image; use screenshots only when pixels, geometry, or visual appearance are the evidence needed, or the user asks for them.
+- Do not take screenshots after every action. For a visual check, start with one relevant capture; take more only for a distinct requirement, a discovered problem, or verification after fixing that problem.
+- Stop once the stated pass condition is established. Repeat only after a relevant change, failure, or unresolved concern; do not re-check solely for extra confidence or completion evidence.
+- Refresh element refs only when needed for subsequent interaction; this is not a requirement to visually re-inspect each state.
+
+## Browser Interaction Workflow
+
+When browser automation is justified, use this pattern:
 
 1. **Navigate**: `agent-browser open <url>`
 2. **Snapshot**: `agent-browser snapshot -i` (get element refs like `@e1`, `@e2`)
 3. **Interact**: Use refs to click, fill, select
-4. **Re-snapshot**: After navigation or DOM changes, get fresh refs
+4. **Re-snapshot**: After navigation or DOM changes, get fresh refs if further interaction needs them
 
 ```bash
 agent-browser open https://example.com/form
@@ -418,7 +439,7 @@ export AGENT_BROWSER_MAX_OUTPUT=50000
 
 ## Diffing (Verifying Changes)
 
-Use `diff snapshot` after performing an action to verify it had the intended effect. This compares the current accessibility tree against the last snapshot taken in the session.
+Use `diff snapshot` when a change in the accessibility tree answers the specific behavioral question being checked. It compares the current tree against the last snapshot taken in the session; it is not required after every action.
 
 ```bash
 # Typical workflow: snapshot -> action -> diff
@@ -495,7 +516,7 @@ AGENT_BROWSER_IDLE_TIMEOUT_MS=60000 agent-browser open example.com
 
 ## Ref Lifecycle (Important)
 
-Refs (`@e1`, `@e2`, etc.) are invalidated when the page changes. Always re-snapshot after:
+Refs (`@e1`, `@e2`, etc.) can become stale when the page changes. Before another ref-based interaction, get fresh refs after:
 
 - Clicking links or buttons that navigate
 - Form submissions
